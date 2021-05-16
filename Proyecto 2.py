@@ -8,7 +8,7 @@ def menu():
 
     ventana= Tk()
 
-    ventana.geometry("600x600+0+0")
+    ventana.geometry("400x400+0+0")
     ventana.title("Menú")
     ventana.configure(background="blue")
     #entry=tkinter.Entry(ventana,show="*")
@@ -32,7 +32,7 @@ def menu():
     def Mantenimiento():
         ventana.destroy()
         def mensaje1():
-            answer=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
+            answer=messagebox.askyesno("Regresar", "¿Desea regresar al menu principal? ")
             if(answer):
                 ventAbrir.destroy()
                 return menu()
@@ -44,7 +44,186 @@ def menu():
                 answer=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
                 if(answer):
                     vetana_de_gestion_de_empresa.destroy()
-                    return Mantenimiento()
+                    return menu()
+            def incluirEmpresa():
+                vetana_de_gestion_de_empresa.destroy()
+                ventIncluir=Tk()
+                ventIncluir.geometry("400x200+100+100")
+                ventIncluir.title("Incluir Empresa")
+                ventIncluir.config(width=300, height=200)
+                etiqueta=tkinter.Label(ventIncluir,text="Ingrese la cedula jurídica.")
+                etiqueta.place(x=80,y=10)
+                entry=tkinter.Entry(ventIncluir)
+                entry.place(x=80,y=30)
+                def continuar():
+                    respuesta=entry.get()
+                    archivo=open("gestion de empresa.txt")
+                    verificar=archivo.readlines()
+                    if(len(respuesta) == 10):
+                        if((respuesta+"\n") in verificar)==False:
+                            archivo=open("gestion de empresa.txt","a")
+                            archivo.write(respuesta+"\n")
+                            #etiqueta.destroy()
+                            #entry.destroy()
+                            etiqueta=tkinter.Label(ventIncluir,text="Ingrese el nombre de la empresa.")
+                            etiqueta.place(x=80,y=10)
+                            #entrada=tkinter.Entry(ventIncluir)
+                            #entrada.place(x=80,y=30)
+                            #result1=entrada.get()
+                            def continuar1():
+                                respuesta=entry.get()
+                                archivo.write(respuesta+"\n")
+                                #etiqueta.destroy()
+                                #entrada.destroy()
+                                etiqueta=tkinter.Label(ventIncluir,text="Ingrese la provincia de la empresa.")
+                                etiqueta.place(x=80,y=10)
+                             #   entrada=tkinter.Entry(ventIncluir)
+                              #  entrada.place(x=80,y=30)
+                               # result2=entrada.get()
+                                def continuar2():
+                                    respuesta=entry.get()
+                                    archivo.write(respuesta+"\n")
+                                    etiqueta=tkinter.Label(ventIncluir,text="Ingrese la direccion exacta de la empresa.")
+                                    etiqueta.place(x=80,y=10)
+                               #     entrada=tkinter.Entry(ventIncluir)
+                                #    entrada.place(x=80,y=30)
+                                 #   result=entrada.get()
+                                    def continuar3():
+                                        respuesta=entry.get()
+                                        archivo.write(respuesta+"\n")
+                                        archivo.write("---------------------"+"\n")
+                                        archivo.close()
+                                        ventIncluir.destroy()
+                                        return menu()
+                                    boton=tkinter.Button(ventIncluir,text="continuar",bg="gray",fg="black",command=continuar3)
+                                    boton.place(x=110,y=70)
+                                boton=tkinter.Button(ventIncluir,text="continuar",bg="gray",fg="black",command=continuar2)
+                                boton.place(x=110,y=70)
+                        boton=tkinter.Button(ventIncluir,text="continuar",bg="gray",fg="black",command=continuar1)
+                        boton.place(x=110,y=70)
+                    else:
+                        answer=messagebox.askyesno("Error", "La cedula juridica no tiene 10 digitos desea intentar de nuevo.")
+                        if(answer):
+                            None
+                        else:
+                            return menu()
+                            
+                            
+
+                        
+                boton=tkinter.Button(ventIncluir,text="continuar",bg="gray",fg="black",command=continuar)
+                boton.place(x=110,y=70)
+                
+                ventIncluir.mainloop()
+            def eliminarEmpresa():
+                vetana_de_gestion_de_empresa.destroy()
+                ventEliminar=Tk()
+                ventEliminar.geometry("400x200+100+100")
+                ventEliminar.title("Eliminar Empresa")
+                ventEliminar.config(width=300, height=200)
+                entry=tkinter.Entry(ventEliminar)
+                entry.place(x=100,y=30)
+                etiqueta=tkinter.Label(ventEliminar,text="Ingrese la cedula juridica de la empresa a eliminar.")
+                etiqueta.place(x=80,y=10)
+                def Eliminar_empresa_aux():
+                    archivo=open("gestion de empresa.txt")
+                    comprobar=archivo.readlines()
+                    eliminar=entry.get()
+                    if(eliminar+"\n" in comprobar):
+                        linea=comprobar.index(eliminar+"\n")
+                        eliminar=Eliminar_Empresa1_aux(comprobar,linea,0)
+                        archivo.close()
+                        archivo=open("gestion de empresa.txt","w")
+                        archivo.write(eliminar)
+                        archivo.close()
+                        etiqueta2=tkinter.Label(ventEliminar,text=f"se elimino la siguiente empresa{eliminar} exitosamente")
+                        etiqueta2.place(x=70,y=80)
+                        
+                boton=tkinter.Button(ventEliminar,text="continuar",bg="gray",fg="black",command=Eliminar_empresa_aux)
+                boton.place(x=120,y=50)
+
+                ventEliminar.mainloop()
+                
+            def modificarEmpresa():
+                vetana_de_gestion_de_empresa.destroy()
+                ventModificar=Tk()
+                ventModificar.geometry("400x200+100+100")
+                ventModificar.title("Modificar Empresa")
+                ventModificar.config(width=300, height=200)
+                etiqueta=tkinter.Label(ventModificar,text="Ingrese la cedula juridica de la empresa a modificar.")
+                etiqueta.place(x=70,y=10)
+                entry=tkinter.Entry(ventModificar)
+                entry.place(x=80,y=30)
+                def modificarEmpresa1():
+                    result=entry.get()
+                    archivo=open("gestion de empresa.txt")
+                    empresas=archivo.readlines()
+                    if(result+"\n") in empresas:
+                        linea=empresas.index(result + "\n")
+                        #Mostrar_Empresa(empresas, linea, 0)
+                        ventModificar.destroy()
+                        empresa_Modificada = Modificar_Empresa_Aux(empresas, linea + 1, 0)#Se creo una variable para ingresar los nuevos datos.
+                        #Gestion = open("gestion de empresa.txt", "w")#Se abre el archivo en el modo que deseamos.
+                        """
+                        En la función *f. = open (nombreArchivo,'r')* donde f. corresponde a file que es un dato o información
+                        que se guarda en el dispositivo de almacenamiento de la computadora. A nuestra variable file le dimos el
+                        nombre de agenda para que fuera de mejor entendimiento.
+                        """
+                        #Gestion.write(Convertir_A_String(empresa_Modificada))#Se escribe la modificación de la empresa en el archivo.
+                        #Gestion.close()#Importante cerrar el archivo.
+                        """
+                        En la función *f.close()* donde f. corresponde a file y a nuestra variable file le dimos el
+                        nombre de agenda para que fuera de mejor entendimiento.
+                        """
+                        #print("\n", "\t", "\t", "\t","¡empresa modificado con éxito! ", "\n")
+                        #return Gestion_de_empresas()
+                    
+                boton=tkinter.Button(ventModificar,text="Modificar",bg="gray",fg="black",command=modificarEmpresa1)
+                boton.place(x=100,y=50)
+
+    
+                               
+            """
+            Nombre: mostrar_empresas()
+            Entradas:
+                El archivo en modo de lectura.
+            Salida:
+                Va a dar una lista de todos lo contactos existentes en la agenda.
+            Restricciones:
+                Abrir el archivo de manera correcta.
+            """        
+            def mostrar_empresas():
+                vetana_de_gestion_de_empresa.destroy()
+                archivo="gestion de empresa.txt"
+                agenda= open (archivo,'r')#Se abre el archivo en el modo que deseamos.
+                """
+                En la función *f. = open (nombreArchivo,'r')* donde f. corresponde a file que es un dato o información
+                que se guarda en el dispositivo de almacenamiento de la computadora. A nuestra variable file le dimos el
+                nombre de agenda para que fuera de mejor entendimiento.
+                """
+                contador =1
+                datos=""
+                for linea in agenda:
+                    datos+="linea "+str(contador)+" : "+linea+"\n" #Imprimir todos los contactos existentes en la agenda.
+                    contador+=1 #Agregamos un contador para que el usuario pueda ver en que linea corresponde a cada dato. 
+                agenda.close()#Importante cerrar el archivo.
+                ventMostrar=Tk()
+                ventMostrar.geometry("300x400")
+                ventMostrar.title("Mostrar transporte.")
+                etiqueta=tkinter.Label(ventMostrar,text=f"{datos}")
+                etiqueta.pack()
+                def salir():
+                    ventMostrar.destroy()
+                    return menu()
+                boton=tkinter.Button(ventMostrar,text="salir",bg="gray",fg="black",command=salir)
+                boton.pack()
+                """
+                En la función *f.close()* donde f. corresponde a file y a nuestra variable file le dimos el
+                nombre de agenda para que fuera de mejor entendimiento.
+                """
+                
+
+
                 
             vetana_de_gestion_de_empresa=Tk()
             vetana_de_gestion_de_empresa.geometry("400x200+100+100")
@@ -53,10 +232,10 @@ def menu():
             barraEmpresa=Menu(vetana_de_gestion_de_empresa)
             menuEmpresa=Menu(barraEmpresa)
             
-            menuEmpresa.add_command(label="incluir empresa",)
-            menuEmpresa.add_command(label="eliminar empresa")
-            menuEmpresa.add_command(label="modificar empresa")
-            menuEmpresa.add_command(label="mostrar empresas")
+            menuEmpresa.add_command(label="incluir empresa",command=incluirEmpresa)
+            menuEmpresa.add_command(label="eliminar empresa",command=eliminarEmpresa)
+            menuEmpresa.add_command(label="modificar empresa",command=modificarEmpresa)
+            menuEmpresa.add_command(label="mostrar empresas",command=mostrar_empresas)
             
             menuEmpresa.add_separator()
             menuEmpresa.add_command(label="Salir de gestion de empresa",command=mensajeEmpresa)
@@ -69,6 +248,7 @@ def menu():
                 answer=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
                 if(answer):
                     ventanaDETransporte.destroy()
+                    return menu()
             ventanaDETransporte=Tk()
             ventanaDETransporte.geometry("300x200+100+100")
             ventanaDETransporte.title("Transporte")
@@ -110,18 +290,23 @@ def menu():
                 
 
         ventAbrir=Tk()
-        ventAbrir.geometry("400x200+100+100")
+        ventAbrir.geometry("300x200+100+100")
         ventAbrir.title("Mantenimiento")
         ventAbrir.configure(background="blue")
+        etiqueta=tkinter.Label(ventAbrir,text="Ingrese la contraseña.")
+        etiqueta.place(x=80,y=10)
         barraMenu1=Menu(ventAbrir)
         mnuEdicion=Menu(barraMenu1,background="red")
         entry=tkinter.Entry(ventAbrir,show="*")
-        entry.grid(column=3,row=6)
+        entry.place(x=80,y=40)
         #entry.focus()
         ventAbrir.config(menu=barraMenu1)
         def clicker():
             respuesta=entry.get()
-            if(respuesta=="12345"):
+            archivo=open("clave.txt")
+            lineas=archivo.readlines()
+            if(respuesta in lineas):
+                etiqueta.destroy()
                 entry.destroy()
                 boton.destroy()
                 def historial_De_reservaciones():
@@ -180,9 +365,84 @@ def menu():
 
 
         boton=tkinter.Button(ventAbrir,text="continuar",bg="gray",fg="black",command=clicker)
-        boton.grid(column=6,row=6)
+        boton.place(x=110,y=70)
         
         ventAbrir.mainloop()
+
+    
+
+    def busquedas_avanzadas():
+        
+        ventana.destroy()
+        
+        def mensaje2():
+            answer2=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
+            if(answer2):
+                ventana_Avanzada.destroy()
+                return menu()
+        def consulta_Viajes():
+            def mensaje_consulta_Viajes():
+                aceptar=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
+                if(aceptar):
+                         ventana_consulta.destroy()
+            ventana_consulta=Tk()
+            ventana_consulta.geometry("400x200+100+100")
+            ventana_consulta.title("consulta_Viajes")
+            barra_Consulta=Menu(ventana_consulta)
+            menu_Consulta=Menu(barra_Consulta)
+            menu_Consulta.add_command(label="Empresa")
+            menu_Consulta.add_command(label="Lugar de salida")
+            menu_Consulta.add_command(label="Lugar de llegada")
+            menu_Consulta.add_command(label="Rango de fecha de salida.")
+            menu_Consulta.add_command(label="Rango de fecha de llegada.")
+                    
+                    
+            menu_Consulta.add_separator()
+            menu_Consulta.add_command(label="Salir de consulta de viajes",command=mensaje_consulta_Viajes)
+            barra_Consulta.add_cascade(label="consulta_Viajes",menu=menu_Consulta)
+            ventana_consulta.config(menu=barra_Consulta)
+            ventana_consulta.mainloop()
+        def reservacion_de_viajes():
+            def mensaje_reservacion():
+               aceptar=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
+               if(aceptar):
+                        vetana_reservacion.destroy()
+            ventana_reservacion=Tk()
+            ventana_reservacion.geometry("400x200+100+100")
+            ventana_reservacion.title("reservacion de viajes")
+            barra_reservacion=Menu(ventana_reservacion)
+            menu_reservacion=Menu(barra_reservacion)
+            menu_reservacion.add_command(label="Salir de reservacion de viajes",command=mensaje_reservacion)
+            barra_reservacion.add_cascade(label="reservacion de viajes",menu=menu_reservacion)
+            ventana_reservacion.config(menu=barra_reservacion)
+            ventana_reservacion.mainloop()
+            
+            
+            
+
+                    
+        ventana_Avanzada=Tk()
+        ventana_Avanzada.geometry("300x200+100+100")
+        ventana_Avanzada.title("Busquedas Avanzadas")
+        barraMenu2=Menu(ventana_Avanzada)
+        menu_avanzado=Menu(barraMenu2)
+
+        menu_avanzado.add_command(label="Consulta de viajes",command=consulta_Viajes)
+        menu_avanzado.add_command(label=" Reservación de viaje",command=reservacion_de_viajes)
+        menu_avanzado.add_command(label=" Cancelación de reservación")
+
+        menu_avanzado.add_separator()
+        menu_avanzado.add_command(label="Salir de Busqueda Avanzadas",command=mensaje2)
+        barraMenu2.add_cascade(label="Busquedas Avanzadas",menu=menu_avanzado)
+        ventana_Avanzada.config(menu=barraMenu2)
+
+        
+        
+        
+
+        ventana_Avanzada.mainloop()
+
+
 
 
     mnuArchivo.add_command(label="Opciones administrativas",command=Mantenimiento)
@@ -200,86 +460,80 @@ def menu():
 
     ventana.mainloop()
 
+#----------------------------------------------------------------------------------------------------------------------
+
+                 ##############FUCIONES AUXILIARES DE ELIMINAR EMPRESAS#########    
+
+def Eliminar_Empresa1_aux(empresas,linea,cont):
+    if (cont==5):
+        return Convertir_A_String(empresas)
+    else:
+        #(empresas[linea].rstrip()
+        empresas.pop(linea)
+        return Eliminar_Empresa1_aux(empresas,linea,cont+1)
+def Convertir_A_String(lista):
+    if isinstance(lista, list):#El parámetro de entrada debe de ser una lista(restricción).
+        string = ""
+        for linea in lista:
+            string += linea
+        return string
+    else:#Se imprime el error en el caso de que el parámetro de entrada no cumple con las restriciones predeterminadas.
+        #print("Error: No se puede convertir a string, debido a que el tipo de dato de entrada no es una lista.")
+         None
+#----------------------------------------------------------------------------------------------------------------------
+
+                 ##############FUCIONES AUXILIARES DE MODIFICAR EMPRESAS########    
 
 
-
-
-
+def Modificar_Empresa_Aux(agenda, linea, contador):
+    ventModificar=Tk()
+    ventModificar.geometry("400x200+100+100")
+    ventModificar.title("Modificar Empresa")
+    ventModificar.config(width=300, height=200)
+    etiqueta=tkinter.Label(ventModificar,text="Ingrese el nuevo nombre de la empresa.")
+    etiqueta.place(x=70,y=10)
+    entry=tkinter.Entry(ventModificar)
+    entry.place(x=80,y=30)
+    if contador == 3:
+        Gestion = open("gestion de empresa.txt", "w")
+        Gestion.write(Convertir_A_String(agenda))#Archivo al cual le se le dió ese nombre.
+        Gestion.close()
+        ventModificar.destroy()
+        return menu()
+    else:#Se hacen las modificaciones del contacto respectivamente.
+        if contador == 0:
+            def modificarSegundoDato():
+                Empresa_Modificado = entry.get()
+                agenda[linea] =Empresa_Modificado + "\n"
+                boton.destroy()
+                ventModificar.destroy()
+                return Modificar_Empresa_Aux(agenda, linea+1, contador+1)
+            boton=tkinter.Button(ventModificar,text="Modificar",bg="gray",fg="black",command=modificarSegundoDato)
+            boton.place(x=100,y=50)
+        elif(contador==1):
+            etiqueta=tkinter.Label(ventModificar,text="Ingrese la nueva provincia de la empresa.")
+            etiqueta.place(x=70,y=10)
+            def modificarTercerDato():
+                Empresa_Modificado=entry.get()
+                agenda[linea]=Empresa_Modificado+"\n"
+                boton.destroy()
+                ventModificar.destroy()
+                return Modificar_Empresa_Aux(agenda, linea+1, contador+1)
+            boton=tkinter.Button(ventModificar,text="Modificar",bg="gray",fg="black",command=modificarTercerDato)
+            boton.place(x=100,y=50)
+        else:
+            etiqueta=tkinter.Label(ventModificar,text="Ingrese la nueva ubicacion exacta de la empresa.")
+            etiqueta.place(x=70,y=10)
+            def modificarCuartoDato():
+                Empresa_Modificado=entry.get()
+                agenda[linea]=Empresa_Modificado+"\n"
+                boton.destroy()
+                ventModificar.destroy()
+                return Modificar_Empresa_Aux(agenda, linea+1, contador+1)
+            boton=tkinter.Button(ventModificar,text="Modificar",bg="gray",fg="black",command=modificarCuartoDato)
+            boton.place(x=100,y=50)
+            
     
-
-
-
-def busquedas_avanzadas():
-    
-    #ventana.destroy()
-    
-    def mensaje2():
-        answer2=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
-        if(answer2):
-            ventana_Avanzada.destroy()
-    def consulta_Viajes():
-        def mensaje_consulta_Viajes():
-            aceptar=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
-            if(aceptar):
-                     ventana_consulta.destroy()
-        ventana_consulta=Tk()
-        ventana_consulta.geometry("400x200+100+100")
-        ventana_consulta.title("consulta_Viajes")
-        barra_Consulta=Menu(ventana_consulta)
-        menu_Consulta=Menu(barra_Consulta)
-        menu_Consulta.add_command(label="Empresa")
-        menu_Consulta.add_command(label="Lugar de salida")
-        menu_Consulta.add_command(label="Lugar de llegada")
-        menu_Consulta.add_command(label="Rango de fecha de salida.")
-        menu_Consulta.add_command(label="Rango de fecha de llegada.")
-                
-                
-        menu_Consulta.add_separator()
-        menu_Consulta.add_command(label="Salir de consulta de viajes",command=mensaje_consulta_Viajes)
-        barra_Consulta.add_cascade(label="consulta_Viajes",menu=menu_Consulta)
-        ventana_consulta.config(menu=barra_Consulta)
-        ventana_consulta.mainloop()
-    def reservacion_de_viajes():
-        def mensaje_reservacion():
-           aceptar=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
-           if(aceptar):
-                    vetana_reservacion.destroy()
-        ventana_reservacion=Tk()
-        ventana_reservacion.geometry("400x200+100+100")
-        ventana_reservacion.title("reservacion de viajes")
-        barra_reservacion=Menu(ventana_reservacion)
-        menu_reservacion=Menu(barra_reservacion)
-        menu_reservacion.add_command(label="Salir de reservacion de viajes",command=mensaje_reservacion)
-        barra_reservacion.add_cascade(label="reservacion de viajes",menu=menu_reservacion)
-        ventana_reservacion.config(menu=barra_reservacion)
-        ventana_reservacion.mainloop()
-        
-        
-        
-
-                
-    ventana_Avanzada=Tk()
-    ventana_Avanzada.geometry("300x200+100+100")
-    ventana_Avanzada.title("Busquedas Avanzadas")
-    barraMenu2=Menu(ventana_Avanzada)
-    menu_avanzado=Menu(barraMenu2)
-
-    menu_avanzado.add_command(label="Consulta de viajes",command=consulta_Viajes)
-    menu_avanzado.add_command(label=" Reservación de viaje",command=reservacion_de_viajes)
-    menu_avanzado.add_command(label=" Cancelación de reservación")
-
-    menu_avanzado.add_separator()
-    menu_avanzado.add_command(label="Salir de Busqueda Avanzadas",command=mensaje2)
-    barraMenu2.add_cascade(label="Busquedas Avanzadas",menu=menu_avanzado)
-    ventana_Avanzada.config(menu=barraMenu2)
-
-    
-    
-    
-
-    ventana_Avanzada.mainloop()
-
-
 
 
 
