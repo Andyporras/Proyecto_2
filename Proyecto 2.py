@@ -244,20 +244,159 @@ def menu():
 
             vetana_de_gestion_de_empresa.mainloop()
         def transporte():
+            ventAbrir.destroy()
             def mensajeTransporte():
                 answer=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
                 if(answer):
                     ventanaDETransporte.destroy()
                     return menu()
+            def IncluirTransporte():
+                ventanaDETransporte.destroy()
+                ventIncluirT=Tk()
+                ventIncluirT.geometry("400x200+100+100")
+                ventIncluirT.title("Incluir transporte")
+                ventIncluirT.config(width=300, height=200)
+                etiqueta=tkinter.Label(ventIncluirT,text="ingrese la placa del transporte.")
+                etiqueta.place(x=80,y=10)
+                entry=tkinter.Entry(ventIncluirT)
+                entry.place(x=80,y=30)
+                def continuarT():
+                    etiqueta.destroy()
+                    respuesta=entry.get()
+                    archivo=open("Gestion de Transporte.txt","a")
+                    archivo=open("Gestion de Transporte.txt")
+                    verificar=archivo.readlines()
+                    if((respuesta+"\n")in verificar)==False:
+                        archivo=open("Gestion de transporte.txt","a")
+                        #respuesta=entry.get()
+                        archivo.write(respuesta+"\n")
+                        etiqueta2=tkinter.Label(ventIncluirT,text="selecione una de las opciones.",font="italic")
+                        etiqueta2.place(x=80,y=10)
+                        entry.destroy()
+                        boton.destroy()
+                        def buseta():
+                            etiqueta2.destroy()
+                            boton1.destroy()
+                            boton2.destroy()
+                            
+                            entry=tkinter.Entry(ventIncluirT)
+                            entry.place(x=90,y=50)
+                            archivo.write("buseta"+"\n")
+                            etiqueta1=tkinter.Label(ventIncluirT,text="ingrese la marca de la buseta.",font="bold")
+                            etiqueta1.place(x=80,y=10)
+                            def incluirT():
+                                boton.destroy()
+                                etiqueta1.destroy()
+                                marca=entry.get()
+                                
+                                archivo.write(marca+"\n")
+                                etiqueta=tkinter.Label(ventIncluirT,text="Ingrese el modelo de la buseta.")
+                                etiqueta.place(x=80,y=10)
+                                def modeloAux():
+                                    etiqueta.destroy()
+                                    boton1.destroy()
+                                    
+                                    
+                                    modelo=entry.get()
+                                    archivo.write(modelo+"\n")
+                                    etiqueta1=tkinter.Label(ventIncluirT,text="Ingrese el año.")
+                                    etiqueta1.place(x=80,y=10)
+                                    def añoAUX():
+                                        boton2.destroy()
+                                        etiqueta1.destroy()
+                                        año=entry.get()
+                                        archivo.write(año+"\n")
+                                        etiqueta=tkinter.Label(ventIncluirT,text="seleccione una de las empresas disponible")
+                                        etiqueta.pack()
+                                        mostrar=open("gestion de empresa.txt")
+                                        etiqueta2=tkinter.Label(ventIncluirT,text=f"{mostrar.read()}",font="italic")
+                                        etiqueta2.pack()
+                                        entry.pack()
+                                        def empresaAUX():
+                                            etiqueta.destroy()
+                                            etiqueta2.destroy()
+                                            boton.destroy()
+                                        
+                                            empresa=entry.get()
+                                            archivo.write(empresa+"\n")
+                                            etiqueta=tkinter.Label(ventIncluirT,text="Ingrese la cantidad de asiento VIP")
+                                            etiqueta.place(x=80,y=10)
+                                            entry.place(x=90,y=30)
+                                            def VipAux():
+                                                boton1.destroy()
+                                                etiqueta.destroy()
+                                                Vip=entry.get()
+                                                archivo.write(Vip+"\n")
+                                                etiqueta=tkinter.Label(ventIncluirT,text="Ingrese la cantidad de asiento clase normal")
+                                                etiqueta.place(x=80,y=10)
+                                                def normalAUX():
+                                                    etiqueta.destroy()
+                                                    boton.destroy()
+                                                    normal=entry.get()
+                                                    archivo.write(normal+"\n")
+                                                    etiqueta=tkinter.Label(ventIncluirT,text="Ingrese la cantidad de asiento clase economico. ")
+                                                    etiqueta.place(x=70,y=10)
+                                                    def economicoAUX():
+                                                        ventIncluirT.destroy()
+                                                        economico=entry.get()
+                                                        archivo.write(economico+"\n")
+                                                        archivo.close()
+                                                        return menu()
+                                                    boton=tkinter.Button(ventIncluiT,text="continuar",command=economicoAUX)
+                                                boton=tkinter.Button(ventIncluirT,text="continuar",command=normalAUX)
+                                                boton.place(x=120,y=50)
+                                            boton1=tkinter.Button(ventIncluirT,text="continuar",font="italic",command=VipAux)
+                                            boton1.place(x=120,y=50)
+                                        boton=tkinter.Button(ventIncluirT,text="continuar",font="italic",command=empresaAUX)
+                                        boton.pack()
+                                    boton2=tkinter.Button(ventIncluirT,text="agregar",command=añoAUX)
+                                    boton2.place(x=120,y=70)
+                                boton1=tkinter.Button(ventIncluirT,text="continuar",command=modeloAux)
+                                boton1.place(x=120,y=70)
+                                
+                            boton=tkinter.Button(ventIncluirT,text="continuar",command=incluirT)
+                            boton.place(x=130,y=80)
+
+                        def limosina():
+                            boton1.destroy()
+                            boton2.destroy()
+                            entry=tkinter.Entry(ventIncluirT)
+                            entry.place(x=80,y=30)
+                            archivo.write("buseta"+"\n")
+                            etiqueta=tkinter.Label(ventIncluirT,text="ingrese la marca de la buseta.")
+                            etiqueta.place(x=80,y=10)
+                            def incluirT1():
+                                etiqueta=tkinter.Entry(incluirT,text="Ingrese el modelo de la buseta.")
+                                etiqueta.place(x=80,y=10)
+
+                                boton=tkinter.Button(incluirT,text="continuar")
+                                boton.place(x=110,y=50)
+                            boton=tkinter.Button(ventIncluirT,text="continuar",command=incluirT1)
+                            boton.place(x=110,y=50)
+                            
+                            
+                            
+                        boton1=tkinter.Button(ventIncluirT,text="Buseta",command=buseta)
+                        boton1.place(x=70,y=50)
+                        boton2=tkinter.Button(ventIncluirT,text="limosina",command=limosina)
+                        boton2.place(x=150,y=50)
+                        
+                    else:
+                        mensaje=messagebox.askyesno("Error","Error, Digite una palca que no este repetido. ¿desea salir?")
+                        if(mensaje):
+                            ventIncluirT,destroy()
+                            return menu()
+                boton=tkinter.Button(ventIncluirT,text="continuar",bg="gray",fg="black",command=continuarT)
+                boton.place(x=110,y=50)
             ventanaDETransporte=Tk()
             ventanaDETransporte.geometry("300x200+100+100")
             ventanaDETransporte.title("Transporte")
             barraTransporte=Menu(ventanaDETransporte)
             menuTransporte=Menu(barraTransporte)
-            menuTransporte.add_command(label="incluir empresa",)
-            menuTransporte.add_command(label="eliminar empresa")
-            menuTransporte.add_command(label="modificar empresa")
-            menuTransporte.add_command(label="mostrar empresas")
+            menuTransporte.add_command(label="incluir transporte",command=IncluirTransporte)
+            menuTransporte.add_command(label="eliminar transporte")
+            menuTransporte.add_command(label="modificar transporte")
+            menuTransporte.add_command(label="mostrar transporte")
             
             menuTransporte.add_separator()
             menuTransporte.add_command(label="Salir de gestion de empresa",command=mensajeTransporte)
