@@ -465,15 +465,108 @@ def menu():
                             return menu()
                 boton=tkinter.Button(ventIncluirT,text="continuar",bg="gray",fg="black",command=continuarT)
                 boton.place(x=110,y=50)
+
+            def EliminarTransporte():
+                barraTransporte.destroy()
+                ventanaDETransporte.geometry("400x400")
+                ventanaDETransporte.title("Eliminar Transporte")
+                etiqueta=tkinter.Label(ventanaDETransporte,text="Ingrese la placa del transporte a eliminar",font="bold")
+                etiqueta.place(x=10,y=10)
+                entry=tkinter.Entry(ventanaDETransporte)
+                entry.place(x=80,y=40)
+                def eliminarTransporte_aux():
+                    #boton.destroy()
+                    archivo=open("Gestion de transporte.txt")
+                    transportes=archivo.readlines()
+                    placa=entry.get()
+                    if((placa+"\n")in transportes):
+                        linea = transportes.index(placa+"\n")
+                        eliminar=Eliminar_transporte_aux(transportes,linea,0)
+                        archivo.close()
+                        archivo=open("Gestion de transporte.txt","w")
+                        archivo.write(eliminar)
+                        archivo.close()
+                        ventanaDETransporte.destroy()
+                        return eliminado(transportes,linea,0)
+                    else:
+                        mensaje=messagebox.showinfo("Error","La placa ingresada no exixte.")
+                    #boton2=tkinter.Button(ventanaDETransporte,text="Eliminar")
+                                                
+                boton=tkinter.Button(ventanaDETransporte,text="Eliminar",command=eliminarTransporte_aux)
+                boton.place(x=120,y=60)
+            def ModificarTransporte():
+                barraTransporte.destroy()
+                ventanaDETransporte.title("Modificar Transporte")
+                etiqueta=tkinter.Label(ventanaDETransporte,text="Ingrese la placa del transporte a modificar")
+                etiqueta.place(x=10,y=10)
+                entry=tkinter.Entry(ventanaDETransporte)
+                entry.place(x=70,y=30)
+                def modificarTransporte_aux():
+                    placa=entry.get()
+                    archivo=open("Gestion de transporte.txt")
+                    transporte=archivo.readlines()
+                    if((placa+"\n")in transporte):
+                        linea = transporte.index(placa + "\n")
+                        #Mostrar_transporte(transporte, linea, 0)
+                        transporte_Modificado = Modificar_transporte_Aux(transporte, linea+1, 0)#Se creo una variable para ingresar los nuevos datos.
+                        #Gestion = open("Gestion de transporte.txt", "w")#Se abre el archivo en el modo que deseamos.
+                        """
+                        En la función *f. = open (nombreArchivo,'r')* donde f. corresponde a file que es un dato o información
+                        que se guarda en el dispositivo de almacenamiento de la computadora. A nuestra variable file le dimos el
+                        nombre de agenda para que fuera de mejor entendimiento.
+                        """
+                        #Gestion.write(Convertir_A_String(transporte_Modificado))#Se escribe la modificación de la empresa en el archivo.
+                        #Gestion.close()#Importante cerrar el archivo.
+                        """
+                        En la función *f.close()* donde f. corresponde a file y a nuestra variable file le dimos el
+                        nombre de Gestion para que fuera de mejor entendimiento.
+                        """
+                        ventanaDETransporte.destroy()
+                        #return menu
+                             
+                    
+                    
+                boton=tkinter.Button(ventanaDETransporte,text="Modificar",command=modificarTransporte_aux)
+                boton.place(x=100,y=50)    
+            
+            def MostrarTransporte():
+                archivo="Gestion de transporte.txt"
+                agenda= open (archivo,'r')#Se abre el archivo en el modo que deseamos.
+                """
+                En la función *f. = open (nombreArchivo,'r')* donde f. corresponde a file que es un dato o información
+                que se guarda en el dispositivo de almacenamiento de la computadora. A nuestra variable file le dimos el
+                nombre de agenda para que fuera de mejor entendimiento.
+                """
+                contador =1
+                datos=""
+                for linea in agenda:
+                    datos+="linea"+str(contador)+":"+linea#Imprimir todos los contactos existentes en la agenda.
+                    contador+=1 #Agregamos un contador para que el usuario pueda ver en que linea corresponde a cada dato. 
+                agenda.close()#Importante cerrar el archivo.
+                """
+                En la función *f.close()* donde f. corresponde a file y a nuestra variable file le dimos el
+                nombre de agenda para que fuera de mejor entendimiento.
+                """
+                barraTransporte.destroy()
+                ventanaDETransporte.title("Mostrar Transporte")
+                ventanaDETransporte.geometry("300x800")
+
+                etiqueta=tkinter.Label(ventanaDETransporte,text=f"{datos}",font="italic")
+                etiqueta.pack()
+                def continuarAuX():
+                    ventanaDETransporte.destroy()
+                    return menu()
+                boton=tkinter.Button(ventanaDETransporte,text="Continuar",font="italic",command=continuarAuX)
+                boton.pack()
             ventanaDETransporte=Tk()
             ventanaDETransporte.geometry("300x200+100+100")
             ventanaDETransporte.title("Transporte")
             barraTransporte=Menu(ventanaDETransporte)
             menuTransporte=Menu(barraTransporte)
             menuTransporte.add_command(label="incluir transporte",command=IncluirTransporte)
-            menuTransporte.add_command(label="eliminar transporte")
-            menuTransporte.add_command(label="modificar transporte")
-            menuTransporte.add_command(label="mostrar transporte")
+            menuTransporte.add_command(label="eliminar transporte",command=EliminarTransporte)
+            menuTransporte.add_command(label="modificar transporte",command=ModificarTransporte)
+            menuTransporte.add_command(label="mostrar transporte",command=MostrarTransporte)
             
             menuTransporte.add_separator()
             menuTransporte.add_command(label="Salir de gestion de empresa",command=mensajeTransporte)
@@ -749,8 +842,202 @@ def Modificar_Empresa_Aux(agenda, linea, contador):
             boton=tkinter.Button(ventModificar,text="Modificar",bg="gray",fg="black",command=modificarCuartoDato)
             boton.place(x=100,y=50)
             
-    
 
+#--------------------------------------------------------------------------------------------------------------------------------
+            ##############Eliminar transporte auxiliar###########
+"""
+nombre:Eliminar_transporte_aux
+entrada: transporte=la informacion de los transporte en lista
+linea= linea de la lista que se desea eliminar
+cont=un numero cero que ira aumentado su valor por uno por cada recursion que se realice hasta que se cumpla la condición.
+salida: la lineas o indice de la lista que fue eliminada de la lista.
+restricciones: el cont(contador) debe tener el valor de 9 para terminar la recurción 
+"""
+def Eliminar_transporte_aux(transporte,linea,cont):
+    eliminado=""
+    while cont <=9:
+        eliminado+=transporte[linea].rstrip()+"\n"
+        transporte.pop(linea)
+        transporte
+        linea
+        cont+=1
+    return Convertir_A_String(transporte)
+
+
+
+
+def eliminado(transporte,linea,cont):      
+    result=""
+    
+    while cont <=9:
+        result+=transporte[linea].rstrip()+"\n"
+        transporte.pop(linea)
+        transporte
+        linea
+        cont+=1
+    ventanaEliminado=Tk()
+    ventanaEliminado.title("transporte eliminado")
+    ventanaEliminado.geometry("300x400")
+    etiqueta=tkinter.Label(ventanaEliminado,text=f"Transportes eliminado.",font="italic")
+    etiqueta.pack()
+    etiqueta1=tkinter.Label(ventanaEliminado,text=f"{result}",font="italic")
+    etiqueta1.pack()
+    def continuarAUX():
+        ventanaEliminado.destroy()
+        return menu()
+
+    boton=tkinter.Button(ventanaEliminado,text="Continuar",font="bold",command=continuarAUX)
+    boton.pack()
+#--------------------------------------------------------------------------------------------------------
+            #############Modificar transporte auxiliar###########
+
+def Modificar_transporte_Aux(transporte, linea , cont):
+    ventModificar=Tk()
+    ventModificar.geometry("400x200+100+100")
+    ventModificar.title("Modificar Transporte")
+    ventModificar.config(width=300, height=200)
+    #etiqueta=tkinter.Label(ventModificar,text="Ingrese el nuevo nombre de la empresa.")
+    #etiqueta.place(x=70,y=10)
+    
+    if cont == 8:
+        Gestion = open("Gestion de transporte.txt", "w")#Se abre el archivo en el modo que deseamos.
+        """
+        En la función *f. = open (nombreArchivo,'r')* donde f. corresponde a file que es un dato o información
+        que se guarda en el dispositivo de almacenamiento de la computadora. A nuestra variable file le dimos el
+        nombre de agenda para que fuera de mejor entendimiento.
+        """
+        Gestion.write(Convertir_A_String(transporte))#Se escribe la modificación de la empresa en el archivo.
+        Gestion.close()#Importante cerrar el archivo.
+        """
+        En la función *f.close()* donde f. corresponde a file y a nuestra variable file le dimos el
+        nombre de Gestion para que fuera de mejor entendimiento.
+        """
+        ventModificar.destroy()
+        return menu()
+         #Archivo al cual le se le dió ese nombre.
+    else:#Se hacen las modificaciones del contacto respectivamente.
+        if cont == 0:
+            etiqueta =tkinter.Label(ventModificar,text="Eliga el tipo de transporte. ",font="italic")
+            etiqueta.pack()
+            def Buseta_AUX():
+                transporte[linea] ="Buseta"+ "\n"
+            #    boton.destroy()
+             #   boton2.destroy()
+                ventModificar.destroy()
+                return Modificar_transporte_Aux(transporte, linea+1, cont+1)
+            def Limosina_AUX():
+               transporte[linea] ="Limosina"+ "\n"
+              # boton.destroy()
+               #boton2.destroy()
+               ventModificar.destroy()
+               return Modificar_transporte_Aux(transporte, linea+1, cont+1)
+            boton=tkinter.Button(ventModificar,text="Buseta",command=Buseta_AUX)
+            boton.pack()
+            boton2=tkinter.Button(ventModificar,text="Limosina",command=Limosina_AUX)
+            boton2.pack()
+        elif(cont==1):
+            #etiqueta.destroy()
+            etiqueta1=tkinter.Label(ventModificar,text="Ingrese la nueva marca del transporte.",font="bold")
+            etiqueta1.pack()
+            entry=tkinter.Entry(ventModificar)
+            entry.pack()
+            def marcaAUX():
+                marca=entry.get()
+                transporte[linea]=marca+"\n"
+                etiqueta1.destroy()
+                boton.destroy()
+                ventModificar.destroy()
+                return Modificar_transporte_Aux(transporte, linea+1, cont+1)
+            boton=tkinter.Button(ventModificar,text="Modificar",command= marcaAUX)
+            boton.place(x=80,y=60)
+        elif(cont==2):
+            etiqueta=tkinter.Label(ventModificar,text="Ingrese el nuevo modelo del transporte: ")
+            etiqueta.place(x=10,y=10)
+            entry=tkinter.Entry(ventModificar)
+            entry.place(x=80,y=30)
+            def modeloAUX():
+                modelo=entry.get()
+                transporte[linea]=modelo+"\n"
+                ventModificar.destroy()
+                return Modificar_transporte_Aux(transporte, linea+1, cont+1)
+            boton=tkinter.Button(ventModificar,text="Modificar",command=modeloAUX)
+            boton.place(x=80,y=60)
+        elif(cont==3):
+            #etiqueta.destroy()
+            #boton.destroy()
+            etiqueta1=tkinter.Label(ventModificar,text="Ingrese el nuevo año del transporte: ")
+            etiqueta1.place(x=10,y=10)
+            entry=tkinter.Entry(ventModificar)
+            entry.place(x=80,y=30)
+            def AñoAUX():
+                año=entry.get()
+                transporte[linea]=año+"\n"
+                ventModificar.destroy()
+                return Modificar_transporte_Aux(transporte, linea+1, cont+1)
+            boton1=tkinter.Button(ventModificar,text="Modificar",command=AñoAUX)
+            boton1.place(x=80,y=60)
+        elif(cont==4):
+            #etiqueta1.destroy()
+            #boton1.destroy()
+            entry=tkinter.Entry(ventModificar)
+            entry.place(x=80,y=30)
+            etiqueta=tkinter.Label(ventModificar,text="Ingrese la nueva empresa del transporte: ")
+            etiqueta.place(x=10,y=10)
+            def EmpresaAUX():
+                empresa=entry.get()
+                transporte[linea]=empresa+"\n"
+                ventModificar.destroy()
+                return Modificar_transporte_Aux(transporte, linea+1, cont+1)
+            boton=tkinter.Button(ventModificar,text="Modificar",command=EmpresaAUX)
+            boton.place(x=80,y=60)
+
+        elif(cont==5):
+            #etiqueta.destroy()
+            #boton.destroy()
+            entry=tkinter.Entry(ventModificar)
+            entry.place(x=80,y=30)
+            etiqueta1=tkinter.Label(ventModificar,text="Ingrese la cantidad de asiento de clase Vip. ")
+            etiqueta1.place(x=10,y=10)
+            def VipAUX():
+                VIP=entry.get()
+                transporte[linea]=VIP+"\n"
+                ventModificar.destroy()
+                return Modificar_transporte_Aux(transporte, linea+1, cont+1)
+            boton1=tkinter.Button(ventModificar,text="Modificar",command=VipAUX)
+            boton1.place(x=80,y=60)
+           
+        elif(cont==6):
+            #etiqueta1.destroy()
+            #boton1.destroy()
+            etiqueta=tkinter.Label(ventModificar,text=" Ingrese la cantidad de asiento de clase normal. ")
+            etiqueta.place(x=10,y=10)
+            entry=tkinter.Entry(ventModificar)
+            entry.place(x=80,y=30)
+            def NORMAL_AUX():
+                normal=entry.get()
+                transporte[linea]=normal+"\n"
+                ventModificar.destroy()
+                return Modificar_transporte_Aux(transporte, linea+1, cont+1)
+            boton=tkinter.Button(ventModificar,text="Modificar",command=NORMAL_AUX)
+            boton.place(x=80,y=60)
+
+        else:
+            #etiqueta.destroy()
+            #boton.destroy()
+            etiqueta1=tkinter.Label(ventModificar,text="Ingrese la cantidad de asiento de clase económica. ")
+            etiqueta1.place(x=10,y=10)
+            entry=tkinter.Entry(ventModificar)
+            entry.place(x=80,y=30)
+            def EconomicoAUX():
+                economico=entry.get()
+                transporte[linea]=economico+"\n"
+                ventModificar.destroy()
+                return Modificar_transporte_Aux(transporte, linea+1, cont+1)
+            boton1=tkinter.Button(ventModificar,text="Modificar",command=EconomicoAUX)
+            boton1.place(x=80,y=60)
+           
+              
+    
 
 
 
