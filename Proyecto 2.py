@@ -51,9 +51,9 @@ def menu():
                 ventIncluir.geometry("400x200+100+100")
                 ventIncluir.title("Incluir Empresa")
                 ventIncluir.config(width=300, height=200)
-                etiqueta=tkinter.Label(ventIncluir,text="Ingrese la cedula jurídica.")
+                etiqueta=tkinter.Label(ventIncluir,text="Ingrese la cedula jurídica.", font=("Times New Roman",14), bg="white", fg="Black")
                 etiqueta.place(x=80,y=10)
-                entry=tkinter.Entry(ventIncluir)
+                entry=tkinter.Entry(ventIncluir, text="", font=("Times New Roman",14), bg="white", fg="Black")
                 entry.place(x=80,y=30)
                 def continuar():
                     respuesta=entry.get()
@@ -175,8 +175,7 @@ def menu():
                         En la función *f.close()* donde f. corresponde a file y a nuestra variable file le dimos el
                         nombre de agenda para que fuera de mejor entendimiento.
                         """
-                        #print("\n", "\t", "\t", "\t","¡empresa modificado con éxito! ", "\n")
-                        #return Gestion_de_empresas()
+                       
                     
                 boton=tkinter.Button(ventModificar,text="Modificar",bg="gray",fg="black",command=modificarEmpresa1)
                 boton.place(x=100,y=50)
@@ -575,16 +574,156 @@ def menu():
 
             ventanaDETransporte.mainloop()
         def gestion_De_viaje():
+            ventAbrir.destroy()
             def mensajeViaje():
                 aceptar=messagebox.askyesno("salir","¡Desea salir?, Confirme")
                 if(aceptar):
                         ventanaViaje.destroy()
+            def IncluirViajes():
+                ventanaViaje.destroy()
+                ventIncluirV=Tk()
+                ventIncluirV.geometry("400x200+100+100")
+                ventIncluirV.title("Incluir Viajes.txt")
+                ventIncluirV.config(width=300, height=200)
+                etiqueta=tkinter.Label(ventIncluirV,text="Ingrese la provincia de salidad.",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black")
+                etiqueta.place(x=80,y=10)
+                entry=tkinter.Entry(ventIncluirV, text="", font=("Times New Roman",14), bg="white", fg="Black")
+                entry.place(x=80,y=50)
+                def agregarprovincia():
+                    provincia=entry.get()
+                    etiqueta.destroy()
+                    boton.destroy()
+                    numeroDeViaje=numeroDeViaje_aux()
+                    archivo=open("Gestion de viaje","a")
+                    archivo.write(numeroDeViaje+"\n")
+                    archivo.write(provincia+"\n")
+                    etiqueta1=tkinter.Label(ventIncluirV,text="Ingrese la ciudad de salidad.",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black")
+                    etiqueta1.place(x=80,y=10)
+                    def agregarciudad():
+                        etiqueta1.destroy()
+                        boton1.destroy()
+                        ciudad=entry.get()
+                        archivo.write(ciudad+"\n")
+                        etiqueta=tkinter.Label(ventIncluirV,text="Ingrese la fecha de salidad.",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black")
+                        etiqueta.place(x=80,y=10)
+                        def agregarFechaSA():
+                            etiqueta.destroy()
+                            boton.destroy()
+                            fecha=entry.get()
+                            archivo.write(fecha+"\n")
+                            etiqueta1=tkinter.Label(ventIncluirV,text="Ingrese la hora de salidad.",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black")
+                            etiqueta1.place(x=80,y=10)
+                            def agregarhora():
+                                etiqueta1.destroy()
+                                boton1.destroy()
+                                hora=entry.get()
+                                archivo.write(hora+"\n")
+                                etiqueta=tkinter.Label(ventIncluirV,text="Ingrese la provincia de llegada.",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black")
+                                etiqueta.place(x=80,y=10)
+                                def agregarProvinciaLLE():
+                                    etiqueta.destroy()
+                                    boton.destroy()
+                                    provincia=entry.get()
+                                    archivo.write(provincia+"\n")
+                                    etiqueta1=tkinter.Label(ventIncluirV,text="Ingrese la ciudad de llegada.",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black")
+                                    etiqueta1.place(x=80,y=10)
+                                    def agregarciudadLLE():
+                                        etiqueta1.destroy()
+                                        boton1.destroy()
+                                        ciudad=entry.get()
+                                        archivo.write(ciudad+"\n")
+                                        etiqueta=tkinter.Label(ventIncluirV,text="Ingrese la fecha de llegada.",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black")
+                                        etiqueta.place(x=80,y=10)
+                                        def agregarFechaLLE():
+                                            etiqueta.destroy()
+                                            boton.destroy()
+                                            fecha=entry.get()
+                                            archivo.write(fecha+"\n")
+                                            etiqueta1=tkinter.Label(ventIncluirV,text="Ingrese la hora de llegada.",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black")
+                                            etiqueta1.place(x=80,y=10)
+                                            def agregarHoraLLE():
+                                                def MostrarTransporte1():
+                                                    archivo="Gestion de transporte.txt"
+                                                    agenda= open (archivo,'r')#Se abre el archivo en el modo que deseamos.
+                                                    """
+                                                    En la función *f. = open (nombreArchivo,'r')* donde f. corresponde a file que es un dato o información
+                                                    que se guarda en el dispositivo de almacenamiento de la computadora. A nuestra variable file le dimos el
+                                                    nombre de agenda para que fuera de mejor entendimiento.
+                                                    """
+                                                    contador =1
+                                                    datos=""
+                                                    for linea in agenda:
+                                                        datos+="linea"+str(contador)+":"+linea#Imprimir todos los contactos existentes en la agenda.
+                                                        contador+=1 #Agregamos un contador para que el usuario pueda ver en que linea corresponde a cada dato. 
+                                                    agenda.close()#Importante cerrar el archivo.
+                                                    """
+                                                    En la función *f.close()* donde f. corresponde a file y a nuestra variable file le dimos el
+                                                    nombre de agenda para que fuera de mejor entendimiento.
+                                                    """
+                                                    return datos
+                                                
+
+                                                etiqueta1.destroy()
+                                                boton1.destroy()
+                                                hora=entry.get()
+                                                entry.destroy()
+                                                archivo.write(hora+"\n")
+                                                transporte=MostrarTransporte1()
+                                                etiqueta=tkinter.Label(ventIncluirV,text=f"{transporte}",font="italic")
+                                                etiqueta.pack()
+                                                etiqueta2=tkinter.Label(ventIncluirV,text="Ingrese el nombre de la empresa.",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black")
+                                                etiqueta2.pack()
+                                                entry1=tkinter.Entry(ventIncluirV,text="", font=("Times New Roman",14), bg="white", fg="Black")
+                                                entry1.pack()
+                                                def AgregraEmpresa1():
+                                                    archivo1=open("Gestion de transporte.txt")
+                                                    transporte=archivo1.readlines()
+                                                    empresa=entry1.get()
+                                                    if(empresa+"\n" )in transporte:
+                                                        archivo.write(empresa+"\n")
+                                                        etiqueta2.destroy()
+                                                        boton.destroy()                
+                                                        etiqueta3=tkinter.Label(ventIncluirV,text="Ingrese la placa del transporte.",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black")
+                                                        etiqueta3.pack()
+                                                        def agregartransporte1():
+                                                            datos=entry1.get()
+                                                            if(datos+"\n") in transporte:
+                                                                archivo.write(datos+"\n")
+                                                                archivo.write("------------------------"+"\n")
+                                                                archivo.close()
+                                                                ventIncluirV.destroy()
+                                                                return menu()
+                                                        boton1=tkinter.Button(ventIncluirV,text="Continuar",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black",command=agregartransporte1)
+                                                        boton1.pack()
+                                                    else:
+                                                        mensaje=messagebox.showinfo("Error","nombre de la empresa no existe.") 
+                                                boton=tkinter.Button(ventIncluirV,text="Continuar",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black",command=AgregraEmpresa1)
+                                                boton.pack()
+                                            boton1=tkinter.Button(ventIncluirV,text="Continuar",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black",command=agregarHoraLLE)
+                                            boton1.place(x=100,y=80) 
+                                        boton=tkinter.Button(ventIncluirV,text="Continuar",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black",command=agregarFechaLLE)
+                                        boton.place(x=100,y=80) 
+                                    
+                                    boton1=tkinter.Button(ventIncluirV,text="Continuar",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black",command=agregarciudadLLE)
+                                    boton1.place(x=100,y=80) 
+                                    
+                                boton=tkinter.Button(ventIncluirV,text="Continuar",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black",command=agregarProvinciaLLE)
+                                boton.place(x=100,y=80) 
+                            boton1=tkinter.Button(ventIncluirV,text="Continuar",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black",command=agregarhora)
+                            boton1.place(x=100,y=80) 
+                        boton=tkinter.Button(ventIncluirV,text="Continuar",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black",command=agregarFechaSA)
+                        boton.place(x=100,y=80) 
+                        
+                    boton1=tkinter.Button(ventIncluirV,text="Continuar",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black",command=agregarciudad)
+                    boton1.place(x=100,y=80)             
+                boton=tkinter.Button(ventIncluirV,text="Continuar",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black",command=agregarprovincia)
+                boton.place(x=100,y=80)
             ventanaViaje=Tk()
             ventanaViaje.geometry("300x200+100+100")
             ventanaViaje.title("viaje")
             barraViaje=Menu(ventanaViaje)
             menuViaje=Menu(barraViaje)
-            menuViaje.add_command(label="incluir Viaje",)
+            menuViaje.add_command(label="incluir Viaje",command=IncluirViajes)
             menuViaje.add_command(label="eliminar Viaje")
             menuViaje.add_command(label="modificar Viaje")
             menuViaje.add_command(label="mostrar Viaje")
@@ -1007,8 +1146,6 @@ def Modificar_transporte_Aux(transporte, linea , cont):
             boton1.place(x=80,y=60)
            
         elif(cont==6):
-            #etiqueta1.destroy()
-            #boton1.destroy()
             etiqueta=tkinter.Label(ventModificar,text=" Ingrese la cantidad de asiento de clase normal. ")
             etiqueta.place(x=10,y=10)
             entry=tkinter.Entry(ventModificar)
@@ -1022,8 +1159,6 @@ def Modificar_transporte_Aux(transporte, linea , cont):
             boton.place(x=80,y=60)
 
         else:
-            #etiqueta.destroy()
-            #boton.destroy()
             etiqueta1=tkinter.Label(ventModificar,text="Ingrese la cantidad de asiento de clase económica. ")
             etiqueta1.place(x=10,y=10)
             entry=tkinter.Entry(ventModificar)
@@ -1037,7 +1172,20 @@ def Modificar_transporte_Aux(transporte, linea , cont):
             boton1.place(x=80,y=60)
            
               
-    
+def numeroDeViaje_aux():
+    archivo="Gestion de viaje.txt"
+    crear=open (archivo,'a')
+    agenda= open (archivo,'r')#Se abre el archivo en el modo que deseamos.
+    """
+    En la función *f. = open (nombreArchivo,'r')* donde f. corresponde a file que es un dato o información
+    que se guarda en el dispositivo de almacenamiento de la computadora. A nuestra variable file le dimos el
+    nombre de agenda para que fuera de mejor entendimiento.
+    """
+    contador=0
+    for linea in agenda:
+        contador+=1
+    agenda.close()
+    return str(contador//12+1)
 
 
 
