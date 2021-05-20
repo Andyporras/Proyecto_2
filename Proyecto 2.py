@@ -718,6 +718,37 @@ def menu():
                     boton1.place(x=100,y=80)             
                 boton=tkinter.Button(ventIncluirV,text="Continuar",font=("Times New Roman", 18),bg="RoyalBlue2" , fg="Black",command=agregarprovincia)
                 boton.place(x=100,y=80)
+
+            def mostrar_viajes():
+                archivo="Gestion de viaje.txt"
+                agenda= open (archivo,'r')#Se abre el archivo en el modo que deseamos.
+                """
+                En la función *f. = open (nombreArchivo,'r')* donde f. corresponde a file que es un dato o información
+                que se guarda en el dispositivo de almacenamiento de la computadora. A nuestra variable file le dimos el
+                nombre de agenda para que fuera de mejor entendimiento.
+                """
+                contador =0
+                datos=""
+                for linea in agenda:
+                    datos+="linea"+str(contador)+":"+str(linea)#Imprimir todos los contactos existentes en la agenda.
+                    contador+=1 #Agregamos un contador para que el usuario pueda ver en que linea corresponde a cada dato. 
+                agenda.close()#Importante cerrar el archivo.
+                """
+                En la función *f.close()* donde f. corresponde a file y a nuestra variable file le dimos el
+                nombre de agenda para que fuera de mejor entendimiento.
+                """
+                barraViaje.destroy()
+                ventanaViaje.title("Mostrar Viajes")
+                ventanaViaje.geometry("300x700")
+
+                etiqueta=tkinter.Label(ventanaViaje,text=f"{datos}",font="italic")
+                etiqueta.pack()
+                def continuarAuX1():
+                    ventanaViaje.destroy()
+                    return menu()
+                boton=tkinter.Button(ventanaViaje,text="Continuar",font="italic",command=continuarAuX1)
+                boton.pack()
+                
             ventanaViaje=Tk()
             ventanaViaje.geometry("300x200+100+100")
             ventanaViaje.title("viaje")
@@ -726,7 +757,7 @@ def menu():
             menuViaje.add_command(label="incluir Viaje",command=IncluirViajes)
             menuViaje.add_command(label="eliminar Viaje")
             menuViaje.add_command(label="modificar Viaje")
-            menuViaje.add_command(label="mostrar Viaje")
+            menuViaje.add_command(label="mostrar Viaje",command=mostrar_viajes)
             
             menuViaje.add_separator()
             menuViaje.add_command(label="Salir de gestion de Viaje",command=mensajeViaje)
