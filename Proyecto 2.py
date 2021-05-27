@@ -1098,6 +1098,34 @@ restricciones: no hay una definida.
             ventana_reservacion.mainloop()
             
             
+        def cancelacion_aux():
+            barraMenu2.destroy()
+            ventana_Avanzada.geometry("400x400")
+            ventana_Avanzada.title("Cancelar reservacion")
+            etiqueta=tkinter.Label(ventana_Avanzada,text="Ingrese el numero de reservacion",font="bold")
+            etiqueta.place(x=10,y=10)
+            entry=tkinter.Entry(ventana_Avanzada, font=("Times New Roman",14), bg="white", fg="Black")
+            entry.place(x=80,y=40)
+            def cancelarReservacion_aux():
+                
+                archivo=open("Reservacion.txt")
+                reservaciones=archivo.readlines()
+                numero=entry.get()
+                if((numero+"\n")in reservaciones):
+                    linea = reservaciones.index(numero+"\n")
+                    eliminar=cancelar_Reservacion_aux(reservaciones,linea,0)
+                    archivo.close()
+                    archivo=open("Reservacion.txt","w")
+                    archivo.write(eliminar)
+                    archivo.close()
+                    ventana_Avanzada.destroy()
+                else:
+                    mensaje=messagebox.showinfo("Error","El numero de reservacion ingresado no exixte.")
+              
+                                                
+            boton=tkinter.Button(ventana_Avanzada,text="Cancelar reservacion",command=cancelarReservacion_aux)
+            boton.place(x=120,y=60)
+
             
 
                     
@@ -1109,7 +1137,7 @@ restricciones: no hay una definida.
 
         menu_avanzado.add_command(label="Consulta de viajes",font=("Times New Roman",14),command=consulta_Viajes)
         menu_avanzado.add_command(label=" Reservación de viaje", font=("Times New Roman",14),command=reservacion_de_viajes)
-        menu_avanzado.add_command(label=" Cancelación de reservación", font=("Times New Roman",14))
+        menu_avanzado.add_command(label=" Cancelación de reservación", font=("Times New Roman",14),command=cancelacion_aux)
 
         menu_avanzado.add_separator()
         menu_avanzado.add_command(label="Salir de Busqueda Avanzadas",font=("Times New Roman",14),command=mensaje2)
@@ -1724,7 +1752,38 @@ def Mostrar_viaje(datos,linea,cont):
     boton.pack() 
                                                 
 
+#---------------------------------------------------------------------------------------------------------------------------------------------
 
+    
+def cancelar_Reservacion_aux(reservaciones,linea,cont):
+    eliminado=[]
+    while cont <=16:
+        eliminado+=[reservaciones[linea]]
+        reservaciones.pop(linea)
+        reservaciones
+        linea
+        cont+=1
+    mostrarReservacion_Cancelada(eliminado)
+    return Convertir_A_String(reservaciones)
+ 
+def mostrarReservacion_Cancelada(reservacion):      
+    ventanaEliminado=Tk()
+    ventanaEliminado.title("Reservacion cancelada")
+    ventanaEliminado.geometry("300x400")
+    etiqueta=tkinter.Label(ventanaEliminado,text=f"Reservacion cancelada.",font="italic")
+    etiqueta.pack()
+    lista=Listbox(ventanaEliminado,font=("Times New Roman",14), bg="white", fg="Black")
+    lista.pack()
+    cont=0
+    for linea in reservacion:
+        lista.insert(cont,f"linea {cont}:{linea}")
+        cont+=1
+    def continuarAUX():
+        ventanaEliminado.destroy()
+        return menu()
+
+    boton=tkinter.Button(ventanaEliminado,text="Continuar",font="bold",command=continuarAUX)
+    boton.pack()
 
     
 menu()
