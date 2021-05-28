@@ -112,25 +112,49 @@ def menu():
                 ventEliminar.title("Eliminar Empresa")
                 ventEliminar.config(width=300, height=200)
                 entry=tkinter.Entry(ventEliminar, text="", font=("Times New Roman",14), bg="white", fg="Black")
-                entry.place(x=100,y=30)
-                etiqueta=tkinter.Label(ventEliminar,text="Ingrese la cedula juridica de la empresa a eliminar.")
-                etiqueta.place(x=80,y=10)
+                entry.place(x=110,y=40)
+                etiqueta=tkinter.Label(ventEliminar,text="Ingrese la cedula juridica de la empresa a eliminar.",font=("Times New Roman",14), bg="white", fg="Black")
+                etiqueta.place(x=20,y=10)
                 def Eliminar_empresa_aux():
                     archivo=open("gestion de empresa.txt")
                     comprobar=archivo.readlines()
                     eliminar=entry.get()
                     if(eliminar+"\n" in comprobar):
+                        archivo1=open("Gestion de Transporte.txt")
+                        comprobar2=archivo1.readlines()
                         linea=comprobar.index(eliminar+"\n")
-                        eliminar=Eliminar_Empresa1_aux(comprobar,linea,0)
-                        archivo.close()
-                        archivo=open("gestion de empresa.txt","w")
-                        archivo.write(eliminar)
-                        archivo.close()
-                        etiqueta2=tkinter.Label(ventEliminar,text=f"se elimino la siguiente empresa{eliminar} exitosamente")
-                        etiqueta2.place(x=70,y=80)
+                        if(comprobar[linea+1])in comprobar2 :
+                             answer=messagebox.showinfo("Salir", "¿Desea Salir?, Confirme...")
+                             
+                            
+                        else:
+                            
+                            etiqueta.destroy()
+                            entry.destroy()
+                            boton.destroy()
+                            lista=Listbox(ventEliminar,font=("Times New Roman",14), bg="white", fg="Black")
+                            lista.pack()
+                            cont=1
+                            lista.insert(0,f"empresa eliminado")
+                            for linea in comprobar[linea:linea+5]:
+                                lista.insert(cont,f"linea {cont}: {linea}")
+                                cont+=1
+                            linea=comprobar.index(eliminar+"\n")
+                            eliminar=Eliminar_Empresa1_aux(comprobar,linea,0)
+                            archivo.close()
+                            archivo=open("gestion de empresa.txt","w")
+                            archivo.write(eliminar)
+                            archivo.close()
+                            
+                            def Eliminar1_empresa_aux():
+                                ventEliminar.destroy()
+                                return menu()
+                            boton1=tkinter.Button(ventEliminar,text="continuar",bg="gray",fg="black",command=Eliminar1_empresa_aux)
+                            boton1.pack()
+                            
                         
                 boton=tkinter.Button(ventEliminar,text="continuar",bg="gray",fg="black",command=Eliminar_empresa_aux)
-                boton.place(x=120,y=50)
+                boton.place(x=150,y=80)
 
                 ventEliminar.mainloop()
                 
@@ -473,7 +497,7 @@ def menu():
                 entry=tkinter.Entry(ventanaDETransporte,text="", font=("Times New Roman",14), bg="white", fg="Black")
                 entry.place(x=80,y=40)
                 def eliminarTransporte_aux():
-                    #boton.destroy()
+                
                     archivo=open("Gestion de transporte.txt")
                     transportes=archivo.readlines()
                     placa=entry.get()
@@ -1176,8 +1200,8 @@ def Eliminar_Empresa1_aux(empresas,linea,cont):
     if (cont==5):
         return Convertir_A_String(empresas)
     else:
-        #(empresas[linea].rstrip()
-        empresas.pop(linea)
+        print(empresas)
+        empresas.pop(int(linea))
         return Eliminar_Empresa1_aux(empresas,linea,cont+1)
 def Convertir_A_String(lista):
     if isinstance(lista, list):#El parámetro de entrada debe de ser una lista(restricción).
