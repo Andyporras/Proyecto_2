@@ -111,8 +111,7 @@ def menu():
                 ventEliminar.geometry("400x200+100+100")
                 ventEliminar.title("Eliminar Empresa")
                 ventEliminar.config(width=300, height=200)
-                entry=tkinter.Entry(ventEliminar, text="", font=("Times New Roman",14), bg="white", fg="Black")
-                entry.place(x=110,y=40)
+                
                 etiqueta=tkinter.Label(ventEliminar,text="Ingrese la cedula juridica de la empresa a eliminar.",font=("Times New Roman",14), bg="white", fg="Black")
                 etiqueta.place(x=20,y=10)
                 def Eliminar_empresa_aux():
@@ -892,26 +891,133 @@ def menu():
                 etiqueta.destroy()
                 entry.destroy()
                 boton.destroy()
+                """
+                nombre: Consultar_historial_de_reservaciones
+                entrada: op=una de las opciones disponible.
+                salida: imprime un menu y despues retorna la opcion seleccionada por el usuario.
+                restricciones: debe seleccionar una de las opciones disponible. 
+                """
+
                 def historial_De_reservaciones():
-                        def mensaje_Historial():
-                            aceptar=messagebox.askyesno("salir","¡Desea salir?, Confirme")
-                            if(aceptar):
-                                ventana_Historial.destroy()
-                        ventana_Historial=Tk()
-                        ventana_Historial.geometry("300x200+100+100")
-                        ventana_Historial.title("historial de reservaciones")
-                        barra_Historial=Menu(ventana_Historial)
-                        menu_Historial=Menu(barra_Historial)
-                        menu_Historial.add_command(label="Rango de fecha de salida",font=("Times New Roman",14))
-                        menu_Historial.add_command(label="Rango de fecha de llegada",font=("Times New Roman",14))
-                        menu_Historial.add_command(label="Rango de fecha de la reservación", font=("Times New Roman",14))
-                        menu_Historial.add_command(label="Lugar de salida y llegada.", font=("Times New Roman",14))
+                    def mensaje_Historial():
+                        aceptar=messagebox.askyesno("salir","¡Desea salir?, Confirme")
+                        if(aceptar):
+                            ventana_Historial.destroy()
+                    ventana_Historial=Tk()
+                    ventana_Historial.geometry("300x200+100+100")
+                    ventana_Historial.title("historial de reservaciones")
+
+                    def rango_de_fecha_de_salida():
+                        barra_Historial.destroy()
+                        ventana_Historial.geometry("400x300")
+                        archivo=open("Reservacion.txt")
+                        lineas=archivo.readlines()
+                        etiqueta=tkinter.Label(ventana_Historial,text="Ingrese el rango de fecha de salida a buscar",
+                                               font=("Times New Roman",14), bg="white", fg="Black")
+                        etiqueta.pack()
+                        entry=tkinter.Entry(ventana_Historial, text="", font=("Times New Roman",14), bg="white", fg="Black")
+                        entry.pack()
+                        def continuar5():
+                            #rango=input("Ingrese el rango de fecha de salida a buscar: ")
+                            buscar=entry.get()
+                            filtrar_por_informacion(lineas,buscar,8,False,8)
+                            archivo.close()
+                        boton=tkinter.Button(ventana_Historial, text="Continuar", font=("Times New Roman",14), bg="white", fg="Black",command=continuar5)
+                        boton.pack()
+
+                    def rango_de_fecha_de_llegada():
+                        barra_Historial.destroy()
+                        ventana_Historial.geometry("400x300")
+                        archivo=open("Reservacion.txt")
+                        lineas=archivo.readlines()
+                        etiqueta=tkinter.Label(ventana_Historial,text="Digite el rango de la fecha de llegada a filtar:",                                                   font=("Times New Roman",14), bg="white", fg="Black")
+                        etiqueta.pack()
+                        entry=tkinter.Entry(ventana_Historial, text="", font=("Times New Roman",14), bg="white", fg="Black")
+                        entry.pack()
+                        def continuar6():
+                            #rango=input("Ingrese el rango de fecha de salida a buscar: ")
+                            buscar=entry.get()
+                            filtrar_por_informacion(lineas,buscar,11,False,11)
+                            archivo.close()
+                        boton=tkinter.Button(ventana_Historial, text="Continuar", font=("Times New Roman",14),
+                                            bg="white", fg="Black",command=continuar6)
+                        boton.pack()
+                        
+
+                    def rango_de_fecha_de_la_reservacion():
+                        barra_Historial.destroy()
+                        ventana_Historial.geometry("400x300")
+                        archivo=open("Reservacion.txt")
+                        lineas=archivo.readlines()
+                        etiqueta=tkinter.Label(ventana_Historial,text="Digite el rango de la fecha de reservacion a buscar:",
+                                               font=("Times New Roman",14), bg="white", fg="Black")
+                        etiqueta.pack()
+                        entry=tkinter.Entry(ventana_Historial, text="", font=("Times New Roman",14), bg="white", fg="Black")
+                        entry.pack()
+                        def continuar7():
+                            #rango=input("Ingrese el rango de fecha de salida a buscar: ")
+                            buscar=entry.get()
+                            filtrar_por_informacion(lineas,buscar,3,False,3)
+                            archivo.close()
+                        boton=tkinter.Button(ventana_Historial, text="Continuar", font=("Times New Roman",14),
+                                             bg="white", fg="Black",command=continuar7)
+                        boton.pack()
+
+                    def Buscar_lugar_de_salida():
+                        barra_Historial.destroy()
+                        ventana_Historial.geometry("400x300")
+                        archivo=open("Reservacion.txt")
+                        lineas=archivo.readlines()
+                        etiqueta=tkinter.Label(ventana_Historial,text="digite el lugar de salida a buscar: ",
+                                               font=("Times New Roman",14), bg="white", fg="Black")
+                        etiqueta.pack()
+                        entry=tkinter.Entry(ventana_Historial, text="", font=("Times New Roman",14), bg="white", fg="Black")
+                        entry.pack()
+                        def continuar8():
+                            #rango=input("Ingrese el rango de fecha de salida a buscar: ")
+                            buscar=entry.get()
+                            filtrar_por_informacion(lineas,buscar,7,False,7)
+                            archivo.close()
+                        boton=tkinter.Button(ventana_Historial, text="Continuar", font=("Times New Roman",14),
+                                             bg="white", fg="Black",command=continuar8)
+                        boton.pack()
+
+
+                    def Buscar_lugar_de_llegada():
+                        barra_Historial.destroy()
+                        ventana_Historial.geometry("400x300")
+                        archivo=open("Reservacion.txt")
+                        lineas=archivo.readlines()
+                        etiqueta=tkinter.Label(ventana_Historial,text="digite el lugar de llegada a buscar: ",
+                                               font=("Times New Roman",14), bg="white", fg="Black")
+                        etiqueta.pack()
+                        entry=tkinter.Entry(ventana_Historial, text="", font=("Times New Roman",14), bg="white", fg="Black")
+                        entry.pack()
+                        def continuar9():
+                            #rango=input("Ingrese el rango de fecha de salida a buscar: ")
+                            buscar=entry.get()
+                            filtrar_por_informacion(lineas,buscar,10,False,10)
+                            archivo.close()
+                        boton=tkinter.Button(ventana_Historial, text="Continuar", font=("Times New Roman",14),
+                                             bg="white", fg="Black",command=continuar9)
+                        boton.pack()
+                            
+
+                            
+                    barra_Historial=Menu(ventana_Historial)
+                    menu_Historial=Menu(barra_Historial)
+                    menu_Historial.add_command(label="Rango de fecha de salida",font=("Times New Roman",14),command=rango_de_fecha_de_salida)
+                    menu_Historial.add_command(label="Rango de fecha de llegada",font=("Times New Roman",14),command=rango_de_fecha_de_llegada)
+                    menu_Historial.add_command(label="Rango de fecha de la reservación", font=("Times New Roman",14),command=rango_de_fecha_de_la_reservacion)
+                    menu_Historial.add_command(label="Lugar de salida.", font=("Times New Roman",14),command=Buscar_lugar_de_salida)
+                    menu_Historial.add_command(label="Lugar de llegada.", font=("Times New Roman",14),command=Buscar_lugar_de_llegada)
+
                     
-                        menu_Historial.add_separator()
-                        menu_Historial.add_command(label="Salir de historial de reservaciones", font=("Times New Roman",14),command=mensaje_Historial)
-                        barra_Historial.add_cascade(label="historial de reservaciones",menu=menu_Historial)
-                        ventana_Historial.config(menu=barra_Historial)
-                        ventana_Historial.mainloop()
+                    menu_Historial.add_separator()
+                    menu_Historial.add_command(label="Salir de historial de reservaciones", font=("Times New Roman",14),command=mensaje_Historial)
+                    barra_Historial.add_cascade(label="historial de reservaciones",menu=menu_Historial)
+                    ventana_Historial.config(menu=barra_Historial)
+                    ventana_Historial.mainloop()
                 """def Estadistica_de_Viaje():
                         def mensaje_Estadisticas():
                             aceptar=messagebox.askyesno("salir","¡Desea salir?, Confirme")
@@ -932,14 +1038,16 @@ def menu():
                         barra_Estadistica.add_cascade(label="Estadistica_de_Viaje",menu=menu_Estadistica)
                         ventana_Estadistica.config(menu=barra_Estadistica)
                         ventana_Estadistica.mainloop()
-                       """ 
+                       """
+
+                def 
                 mnuEdicion.add_command(label="Gestión de empresas", font=("Times New Roman",14),command=Gestion_de_empresa)
                 mnuEdicion.add_command(label="Gestión de transporte por empresa",font=("Times New Roman",14),command=transporte)
                 
                         
                 mnuEdicion.add_command(label="Gestión de viaje", font=("Times New Roman",14),command=gestion_De_viaje)
                 mnuEdicion.add_command(label="Consultar historial de reservaciones",font=("Times New Roman",14),command=historial_De_reservaciones)
-                mnuEdicion.add_command(label=" Estadísticas de viaje" , font=("Times New Roman",14))
+                mnuEdicion.add_command(label=" Estadísticas de viaje" , font=("Times New Roman",14),)
                 
                 mnuEdicion.add_separator()
                 mnuEdicion.add_command(label="Salir de mantenimiento",font=("Times New Roman",14),command=mensaje1)
@@ -996,7 +1104,7 @@ restricciones: no hay una definida.
                     if(empresa+"\n")in lista:
                         boton.destroy()
                         etiqueta.destroy()
-                    
+                        ventana_consulta.destroy()
                         return buscar_por_filtro(lista,empresa,9,False,9)
                 archivo.close()
                 boton=tkinter.Button(ventana_consulta,text="Buscar",font=("Times New Roman",14), bg="white", fg="Black",command=Buscar1)
@@ -1042,7 +1150,7 @@ restricciones: no hay una definida.
                     if(empresa+"\n")in lista:
                         boton.destroy()
                         etiqueta.destroy()
-                    
+                        ventana_consulta.destroy()
                         return buscar_por_filtro(lista,empresa,5,False,5)
                 archivo.close()
                 boton=tkinter.Button(ventana_consulta,text="Buscar",font=("Times New Roman",14), bg="white", fg="Black",command=Buscar3)
@@ -1065,7 +1173,7 @@ restricciones: no hay una definida.
                     if(empresa+"\n")in lista:
                         boton.destroy()
                         etiqueta.destroy()
-                    
+                        ventana_consulta.destroy()
                         return buscar_por_filtro(lista,empresa,3,False,3)
                 archivo.close()
                 boton=tkinter.Button(ventana_consulta,text="Buscar",font=("Times New Roman",14), bg="white", fg="Black",command=Buscar4)
@@ -1087,7 +1195,7 @@ restricciones: no hay una definida.
                     if(empresa+"\n")in lista:
                         boton.destroy()
                         etiqueta.destroy()
-                    
+                        ventana_consulta.destroy()
                         return buscar_por_filtro(lista,empresa,7,False,7)
                 archivo.close()
                 boton=tkinter.Button(ventana_consulta,text="Buscar",font=("Times New Roman",14), bg="white", fg="Black",command=Buscar5)
@@ -1721,9 +1829,18 @@ def Modificar_Viajes_Aux(viajes, linea , cont):
     
 def buscar_por_filtro(lista,buscar,linea,Existe,linea2):
     ventana7=Tk()
+    ventana7.geometry("600x400")
+    mostrar=[]
     while linea< len(lista):
         if buscar in lista[linea]:
-            Mostrar_viaje(lista,linea -linea2, 0)
+            linea3=linea-linea2
+            cont=0
+            while cont!=15:
+                mostrar+=[lista[linea3]]
+                linea3+=1
+                
+                cont+=1
+            #Mostrar_viaje(lista,linea -linea2, 0)
             lista
             buscar
             linea += 15
@@ -1733,6 +1850,12 @@ def buscar_por_filtro(lista,buscar,linea,Existe,linea2):
             buscar
             linea +=15
             linea2
+    lista=Listbox(ventana7, font=("Times New Roman",14), bg="white", fg="Black")
+    lista.pack()
+    cont=0
+    for datos in mostrar:
+        lista.insert(cont,f"linea {cont} : {datos}")
+        cont+=1
     etiqueta=tkinter.Label(ventana7,text=f"Estos son los viajes encontrados según el dato que ingreso. ", font=("Times New Roman",14), bg="white", fg="Black")
     etiqueta.pack()
     def salir5():
@@ -1753,10 +1876,9 @@ salida: se imprime las lista solicitadas.
 restricciones: el contador debe ser igual a 16 para que termine la recursion.
 """
 def Mostrar_viaje(datos,linea,cont):
-    #ventana_consulta.destroy()
     ventana=Tk()
     ventana.geometry("400x400")
-    lista=Listbox(ventana, text="", font=("Times New Roman",14), bg="white", fg="Black")
+    lista=Listbox(ventana, font=("Times New Roman",14), bg="white", fg="Black")
     lista.pack()
     while cont !=15:
         lista.insert(cont,f"linea {cont} : {datos[linea]}")
@@ -1808,6 +1930,183 @@ def mostrarReservacion_Cancelada(reservacion):
 
     boton=tkinter.Button(ventanaEliminado,text="Continuar",font="bold",command=continuarAUX)
     boton.pack()
+#----------------------------------------------------------------------------------------------------------
+
+
+                            ############ AUXILIARES DE BUSQUEDA DE RESERVACION###############
+
+"""
+nombre: filtar_por_informacion.
+entrada: lista= varible que contiene los datos del archivo de reservacion
+buscar= dato a buscar.
+linea= indice de donde se podria ubicar el dato a buscar.
+Existe= varible para comprobar si existe la informacion a buscar.
+linea2=indice de donde debe iniciar la impresion del dato a buscar.
+salida: muestra los datos que se encontro.
+restriciones: la linea debe ser menor que la cantidad de listas que contenga la variable lista 
+"""
+def filtrar_por_informacion(lista,buscar,linea,Existe,linea2):
+    ventanaReservacion=Tk()
+    ventanaReservacion.geometry("500x400")
+    mostrar=[]
+    while linea < len(lista):
+        if buscar in lista[linea]:
+            cont=0
+            linea3=linea-linea2
+            while cont!=18:
+                mostrar+=[lista[linea3]]
+                linea3+=1
+                cont+=1
+                
+            #Mostrar_informacion(lista,linea -linea2, 0)
+            lista
+            buscar
+            linea+=18
+            linea2
+            #return filtrar_por_informacion(lista, buscar, linea + 18, True, linea2)
+        else:
+            lista
+            buscar
+            linea+=18
+            linea2
+            #return filtrar_por_informacion(lista, buscar, linea + 18, Existe, linea2)
+    lista=Listbox(ventanaReservacion, font=("Times New Roman",14), bg="white", fg="Black")
+    lista.pack()
+    cont=0
+    for datos in mostrar:
+        lista.insert(cont,f"linea {cont} : {datos}")
+        cont+=1
+    etiqueta=tkinter.Label(ventanaReservacion,text=f"Estos son los viajes encontrados según el dato que ingreso. ",font=("Times New Roman",14), bg="white", fg="Black")
+    etiqueta.pack()
+    def salirR():
+        mensaje=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
+        if(mensaje):
+            ventanaReservacion.destroy()
+            return menu()
+    
+    boton=tkinter.Button(ventanaReservacion,text="continuar",font=("Times New Roman",14), bg="white", fg="Black",command=salirR)
+    boton.pack()
+
+
+"""
+nombre:Estadisticas_de_viaje
+entrada: op= numero del viaje.
+salida: imprime los datos del viaje solicitado.
+restricciones: debe ser un numero entero la linea.
+"""
+
+def Estadisticas_de_viaje():
+    archivo=open("Gestion de viaje.txt")
+    viajes=archivo.read()
+    print(viajes)
+    op=input("Ingrese el numero del viaje: ")
+    archivo=open("Gestion de viaje.txt")
+    datos=archivo.readlines()# almacena los datos de los viajes
+    linea=buscar_linea_aux(datos,"numero de viaje: "+op+"\n",0)
+    print("")
+    if(isinstance(linea,int)and ("numero del viaje"+str(op)+"\n")):
+        archivo=open("Gestion de viaje.txt")
+        datos=archivo.readlines()
+        print(datos[linea])
+        print(datos[linea+7])
+        print(datos[linea+8])
+        print("lugar de salida: "+datos[linea+1])
+        print("fecha de salida: "+datos[linea+2])
+        print("hora de salida: "+datos[linea+3])
+        print("lugar de llegada: "+datos[linea+4])
+        print("fecha de llegada: "+datos[linea+5])
+        print("hora de llegada: "+datos[linea+6])
+        archivo1=open("reservacion de viaje.txt")
+        datos2=archivo1.readlines()#almacena los datos de las reservaciones
+        valida=linea_aux(datos2,datos[linea],0)
+        #print(isinstance(valida,int))
+        if(isinstance(valida,int)):#and not(valida==False) or valida==0:
+            linea2=linea_aux(datos2,datos[linea],0)
+            print("total de asiento VIP reservado: "+datos2[linea2+13][4:-1])
+            archivo3=open("Gestion de transporte.txt")
+            datos3=archivo3.readlines()#almacena los datos de los transportes de los viaje.
+            linea3=linea3_aux(datos3,datos[linea+8],0)
+            vip=datos2[linea2+13][4:-1]
+            vip=int(vip)
+            disponible=datos3[linea3+5]
+            disponible=disponible[:-1]
+            normal=datos2[linea2+14]
+            normal=int(normal[7:-1])
+            print("total de asiento VIP disponible: "+(str((int(disponible[0:])-(vip)))))
+            print("total de asiento Normal reservado: "+datos2[linea2+14][7:-1])
+            disponible=datos3[linea3+6]
+            disponible=disponible[:-1]
+            print("Total de asiento Normal disponible: "+(str(int(disponible[0:])-(normal))))
+            economico=datos2[linea2+15]
+            economico=int(economico[10:-1])
+            print("Total de asiento economico reservado: "+(str(economico)))
+            disponible=datos3[linea3+7]
+            disponible=disponible[:-1]
+            print("Total de asiento economico disponible: "+(str(int(disponible)-(economico))))
+            costo_VIP=datos[linea+9][10:-1]
+            print("Costo del boleto Vip: "+costo_VIP)
+            Costo_normal=datos[linea+10][13:-1]
+            print("Costo del boleto Normal: "+Costo_normal)
+            Costo_Economico=datos[linea+11][16:-1]
+            print("Costo del boleto Economico: "+Costo_Economico)
+            suma=(vip*int(costo_VIP))+(normal*(int(Costo_normal)))+(economico*(int(Costo_Economico)))
+            print("Monto recaudado por el viaje: "+str(suma))
+            archivo.close()
+            archivo1.close()
+            archivo3.close()
+            return admistrativas()
+        else:
+            #linea2=linea_aux(datos2,datos[linea],0)
+            print("total de asiento VIP reservado: "+"0")
+            archivo3=open("Gestion de transporte.txt")
+            datos3=archivo3.readlines()#almacena los datos de los transportes de los viaje.
+            linea3=linea3_aux(datos3,datos[linea+8],0)
+            #vip=datos2[linea2+13][4:-1]
+            #vip=int(vip)
+            disponible=datos3[linea3+5]
+            disponible=disponible[:-1]
+            #normal=datos2[linea2+14]
+            #normal=int(normal[7:-1])
+            print("total de asiento VIP disponible: "+(str((int(disponible[0:])))))
+            print("total de asiento Normal reservado: "+"0")
+            disponible=datos3[linea3+6]
+            disponible=disponible[:-1]
+            print("Total de asiento Normal disponible: "+(str(int(disponible[0:]))))
+            #economico=datos2[linea2+15]
+            #economico=int(economico[10:-1])
+            print("Total de asiento economico reservado: "+"0")
+            disponible=datos3[linea3+7]
+            disponible=disponible[:-1]
+            print("Total de asiento economico disponible: "+(str(int(disponible))))
+            costo_VIP=datos[linea+9][10:-1]
+            print("Costo del boleto Vip: "+costo_VIP)
+            Costo_normal=datos[linea+10][13:-1]
+            print("Costo del boleto Normal: "+Costo_normal)
+            Costo_Economico=datos[linea+11][16:-1]
+            print("Costo del boleto Economico: "+Costo_Economico)
+            #suma=(vip*int(costo_VIP))+(normal*(int(Costo_normal)))+(economico*(int(Costo_Economico)))
+            print("Monto recaudado por el viaje: "+"0")
+            archivo.close()
+            archivo1.close()
+            archivo3.close()
+            return admistrativas()
+
+            
+            
+            
+            
+    
+
+    
+#def Mostrar_informacion(datos,linea,cont):
+"""  while
+        if cont ==18:#Se hace la debida verificación de la restricción.
+            
+        else:#Si la primera restricción no se cumple se retorna a esta.
+            print(datos[linea].rstrip())
+            return Mostrar_informacion(datos, linea + 1, cont + 1)
+
+"""
 
     
 menu()
