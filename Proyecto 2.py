@@ -2,7 +2,12 @@ import tkinter
 from tkinter import *
 from tkinter import messagebox
 
-
+"""
+nombre:menu
+entrada:ninguna definida
+salida: una ventana de tkinter
+restrincciones: no hay una definida
+"""
 def menu():
        
 
@@ -15,36 +20,66 @@ def menu():
     etiqueta.place(x=0,y=50)
         
 
-    """
-    receta para crear menús
-    paso 1. crear la barra de Menús
-    """
+  
     barraMenu=Menu(ventana)
-    #paso 2. Crear los Menús
+    
     mnuArchivo=Menu(barraMenu,background="red")
-
-    # Paso 3. Crear los comandos de los menús
+    """
+    nombre:mensaje
+    entrada: ninguna definida
+    salida: una ventana con dos botones
+    restricciones: no hay una definida 
+    """
     def mensaje():
             answer=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
             if(answer):
                     ventana.destroy()
-    
+    """
+    nombre:Mantenimiento
+    salida: una ventana con un menu
+    restricciones: debe ingresar la contraseña correcta para mostrar el menu
+    """
     def Mantenimiento():
         ventana.destroy()
+        """
+        nombre:mensaje1
+        entrada: ninguna definida
+        salida: una ventana con dos botones
+        restricciones: no hay una definida 
+        """
         def mensaje1():
             answer=messagebox.askyesno("Regresar", "¿Desea regresar al menu principal? ")
             if(answer):
                 ventAbrir.destroy()
                 return menu()
                 
-
+        """
+        nombre:Gestion_de_empresa
+        salida: una ventana con un menu
+        """
         def Gestion_de_empresa():
             ventAbrir.destroy()
+            """
+            nombre:mensajeEmpresa
+            entrada: ninguna definida
+            salida: una ventana con dos botones
+            restricciones: no hay una definida 
+            """
             def mensajeEmpresa():
                 answer=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
                 if(answer):
                     vetana_de_gestion_de_empresa.destroy()
                     return menu()
+            """
+            nombre: incluirEmpresa
+            entrada: cedula= numero de la cedula juridica
+            nombre=nombre de la empresa
+            Provincia=Provincia de la empresa
+            ciudad:ciudad de la empresa
+            salida: return del menu de Gestion_de_empresas 
+            retricciones: la cedula debe tener 10 digito y debe ser caracteres los datos ingresado.
+             
+            """
             def incluirEmpresa():
                 vetana_de_gestion_de_empresa.destroy()
                 ventIncluir=Tk()
@@ -116,6 +151,12 @@ def menu():
                 boton.place(x=110,y=70)
                 
                 ventIncluir.mainloop()
+            """
+            nombre:eliminarEmpresa
+            entrada:la cedula del transporte
+            salida: borrar la empresa seleccionada
+            retrincciones:debe ingresar una placa existente o guardada en el archivo .txt
+            """
             def eliminarEmpresa():
                 vetana_de_gestion_de_empresa.destroy()
                 ventEliminar=Tk()
@@ -172,7 +213,12 @@ def menu():
                 boton.place(x=150,y=80)
 
                 ventEliminar.mainloop()
-                
+            """
+            nombre:modificarEmpresa
+            entrada: la cedula de la empresa
+            salida: un mensaje de que la empresa a sido modificada con exito
+            restricciones:la cedula debe existir en el archivo de empresas
+            """    
             def modificarEmpresa():
                 vetana_de_gestion_de_empresa.destroy()
                 ventModificar=Tk()
@@ -232,7 +278,7 @@ def menu():
                 """
                 ventMostrar=Tk()
                 ventMostrar.geometry("300x400")
-                ventMostrar.title("Mostrar transporte.")
+                ventMostrar.title("Mostrar Empresa.")
                 ventMostrar.configure(background="purple")
                 lista=Listbox(ventMostrar, font=("Times New Roman",14), bg="white", fg="Black")
                 lista.pack()
@@ -277,6 +323,7 @@ def menu():
             vetana_de_gestion_de_empresa.config(menu=barraEmpresa)
 
             vetana_de_gestion_de_empresa.mainloop()
+            
         def transporte():
             ventAbrir.destroy()
             def mensajeTransporte():
@@ -955,11 +1002,13 @@ def menu():
                         if(aceptar):
                             ventana_Historial.destroy()
                     ventana_Historial=Tk()
-                    ventana_Historial.geometry("300x200+100+100")
+                    ventana_Historial.geometry("500x200+100+100")
                     ventana_Historial.title("historial de reservaciones")
                     ventana_Historial.configure(background="aqua")
-
+                    etiqueta1=tkinter.Label(ventana_Historial,text="Seleccione la opcion que necesita en la parte superior izquierda.",font=("Times New Roman",14), bg="white", fg="Black")
+                    etiqueta1.place(x=0,y=50)
                     def rango_de_fecha_de_salida():
+                        etiqueta1.destroy()
                         barra_Historial.destroy()
                         ventana_Historial.geometry("400x300")
                         ventana_Historial.configure(background="aqua")
@@ -979,12 +1028,14 @@ def menu():
                         boton.pack()
 
                     def rango_de_fecha_de_llegada():
+                        etiqueta1.destroy()
                         barra_Historial.destroy()
                         ventana_Historial.geometry("400x300")
                         ventana_Historial.configure(background="aqua")
                         archivo=open("Reservacion.txt")
                         lineas=archivo.readlines()
-                        etiqueta=tkinter.Label(ventana_Historial,text="Digite el rango de la fecha de llegada a filtar:",                                                   font=("Times New Roman",14), bg="white", fg="Black")
+                        etiqueta=tkinter.Label(ventana_Historial,text="Digite el rango de la fecha de llegada a filtar:",
+                                               font=("Times New Roman",14), bg="white", fg="Black")
                         etiqueta.pack()
                         entry=tkinter.Entry(ventana_Historial, text="", font=("Times New Roman",14), bg="white", fg="Black")
                         entry.pack()
@@ -999,6 +1050,7 @@ def menu():
                         
 
                     def rango_de_fecha_de_la_reservacion():
+                        etiqueta1.destroy()
                         barra_Historial.destroy()
                         ventana_Historial.geometry("400x300")
                         ventana_Historial.configure(background="aqua")
@@ -1019,6 +1071,7 @@ def menu():
                         boton.pack()
 
                     def Buscar_lugar_de_salida():
+                        etiqueta1.destroy()
                         barra_Historial.destroy()
                         ventana_Historial.geometry("400x300")
                         ventana_Historial.configure(background="aqua")
@@ -1040,6 +1093,7 @@ def menu():
 
 
                     def Buscar_lugar_de_llegada():
+                        etiqueta1.destroy()
                         barra_Historial.destroy()
                         ventana_Historial.geometry("400x300")
                         ventana_Historial.configure(background="aqua")
@@ -1062,7 +1116,7 @@ def menu():
 
                             
                     barra_Historial=Menu(ventana_Historial)
-                    menu_Historial=Menu(barra_Historial)
+                    menu_Historial=Menu(barra_Historial,background="lime")
                     menu_Historial.add_command(label="Rango de fecha de salida",font=("Times New Roman",14),command=rango_de_fecha_de_salida)
                     menu_Historial.add_command(label="Rango de fecha de llegada",font=("Times New Roman",14),command=rango_de_fecha_de_llegada)
                     menu_Historial.add_command(label="Rango de fecha de la reservación", font=("Times New Roman",14),command=rango_de_fecha_de_la_reservacion)
@@ -1129,10 +1183,7 @@ def menu():
                                         linea3=Transporte.index(viajes[linea+10])
                                         linea2=reservaciones.index(viajes[linea])
                                         datos+=["Asiento VIP reservado:"+reservaciones[linea2+15]]
-                                        #print(linea3)
                                         disponibleVip=Transporte[linea3+6][:-1]
-                                        #print(disponibleVip)
-                                        print(int(disponibleVip)-int(reservaciones[linea2+15]),1)
                                         datos+=["Asiento VIP disponible:"+str(int(disponibleVip)-int(reservaciones[linea2+15]))]
                                         datos+=["Asiento Normal reservado:"+reservaciones[linea2+16]]
                                         disponibleNormal=Transporte[linea3+7][:-1]
@@ -1157,12 +1208,8 @@ def menu():
                                     archivo3=open("Gestion de Transporte.txt")
                                     Transporte=archivo3.readlines()
                                     linea3=Transporte.index(viajes[linea+10])
-                        #            linea2=reservaciones.index(viajes[linea])
                                     datos+=["Asiento VIP reservado:"+"0"]
-                                        #print(linea3)
                                     disponibleVip=Transporte[linea3+6][:-1]
-                                        #print(disponibleVip)
-                                    print(int(disponibleVip))
                                     datos+=["Asiento VIP disponible:"+str(int(disponibleVip))]
                                     datos+=["Asiento Normal reservado:"+"0"]
                                     disponibleNormal=Transporte[linea3+7][:-1]
@@ -1183,11 +1230,14 @@ def menu():
                                     def continuar7():
                                         ventana_Estadistica.destroy()
                                         return menu()
-                                    
+                            
+                                
                                                
                                 boton1=tkinter.Button(ventana_Estadistica,text="continuar",
                                                      font=("Times New Roman",15),bg="gray",fg="black",command=continuar7)
                                 boton1.pack()      
+                            else:
+                                messagebox.showerror("Error","El numero de viaje no existe")
                                 
                             
                         boton=tkinter.Button(ventana_Estadistica,text="Continuar",
@@ -1232,6 +1282,7 @@ def menu():
                 aceptar=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
                 if(aceptar):
                          ventana_consulta.destroy()
+            etiqueta1.destroy()
             ventana_consulta=Tk()
             ventana_consulta.geometry("400x200+100+100")
             ventana_consulta.title("consulta_Viajes")
@@ -1385,75 +1436,63 @@ def menu():
             barra_Consulta.add_cascade(label="consulta_Viajes",menu=menu_Consulta)
             ventana_consulta.config(menu=barra_Consulta)
             ventana_consulta.mainloop()
+        
         def reservacion_de_viajes():
-            def mensaje_reservacion():
-               aceptar=messagebox.askyesno("Salir", "¿Desea Salir?, Confirme...")
-               if(aceptar):
-                        vetana_reservacion.destroy()
-            ventana_reservacion=Tk()
-            ventana_reservacion.geometry("400x400+100+100")
-            ventana_reservacion.title("reservacion de viajes")
+            ventana_reservacion = Tk()
+            ventana_reservacion.geometry("600x500")
+            ventana_reservacion.title("Reservación de Viaje")
             ventana_reservacion.configure(background="aqua")
-            barra_reservacion=Menu(ventana_reservacion)
-            menu_reservacion=Menu(barra_reservacion,background="lime")
-            archivo=open("Gestion de viaje.txt")
-            viajes=archivo.readlines()
-            cont=0
-            lista=tkinter.Listbox(ventana_reservacion,font=("Times New Roman",14),bg="white", fg="Black")
-            lista.pack()
+
             
+
+            Archivo = open("Gestion de viaje.txt")
+            datos = Archivo.readlines()
+            lista = tkinter.Listbox(ventana_reservacion,width=40)
+            lista.place(x=40,y=170)
             
-            for linea in viajes:
+            cont = 0
+            for linea in datos:
                 lista.insert(cont,f"linea {cont}: {linea}")
-                cont+=1
-            etiqueta=tkinter.Label(ventana_reservacion,text="Ingrese el numero de viaje",font=("Times New Roman",14),bg="white", fg="Black")
-            etiqueta.pack()
-            entry=tkinter.Entry(ventana_reservacion,text="",font=("Times New Roman",14),bg="white", fg="Black")
-            entry.pack()
-            def reservarViaje():
-                reserva=entry.get()
-                if(reserva+"\n") in viajes:
-                    archivo2=open("Gestion de Transporte.txt")
-                    Transporte=archivo2.readlines()
-                    linea=Transporte.index(viajes[10])
-                    cont=20
-                    vip=int(Transporte[linea+6])
-                    normal=int(Transporte[linea+7])
-                    economico=int(Transporte[linea+8])
-                    fila=20
-                    cont2=0
-                    def reservar(n):
-                        print(n)
-                    for n in range(0,vip+normal+economico):
-                        if(cont==vip)or cont==normal or cont==economico:
-                            tkinter.Button(ventana_reservacion,text=f"Vip {cont2}").place(x=cont,y=fila)
-                            
-                            fila+=20
-                            cont=20
-                            cont2+=1
-                        else:
-                            tkinter.Button(ventana_reservacion,text=f"Vip {cont2}").place(x=cont,y=fila)
-                            
-                            cont2+=1
-                            cont=20
-                    entry.destroy()
-                    lista.destroy()
-                    etiqueta.destroy()
-                    boton.destroy()
-                else:
-                    messagebox.showerror("Error","Error el viaje no existe")
-            boton=tkinter.Button(ventana_reservacion,text="reservar",font=("Times New Roman",14),
-                                 bg="white", fg="Black",command=reservarViaje)
-            boton.pack()
-            menu_reservacion.add_command(label="Salir de reservacion de viajes",
-                                         font=("Times New Roman",14),command=mensaje_reservacion)
-            barra_reservacion.add_cascade(label="reservacion de viajes",menu=menu_reservacion)
-            ventana_reservacion.config(menu=barra_reservacion)
-            ventana_reservacion.mainloop()
+                cont += 1
             
+            etiquetaNumero = tkinter.Label(ventana_reservacion,text="Digite el numero del viaje:",
+                                            font=("Times new roman","12"),bg="white", fg="Black").place(x=10,y=20)
+            Numero = tkinter.Entry(ventana_reservacion,text = "",font=("Times new roman","12"),bg="white", fg="Black")
+            Numero.place(x=300,y=20)
+
+            etiquetaNombre = tkinter.Label(ventana_reservacion,text="Escriba su nombre:",
+                                            font=("Times new roman","12"),bg="white", fg="Black").place(x=10,y=50)
+            Nombre = tkinter.Entry(ventana_reservacion,text= "",font=("Times new roman","12"),bg="white", fg="Black")
+            Nombre.place(x=300,y=50)
+
+            etiquetaCantidadVIP = tkinter.Label(ventana_reservacion,text="Cantidad de espacios a reservar VIP:",
+                                        font=("Times new roman","12"),bg="white", fg="Black").place(x=10,y=80)
+            CantidadVIP = tkinter.Entry(ventana_reservacion,text="",font=("Times new roman","12"),bg="white", fg="Black")
+            CantidadVIP.place(x=300,y=80)
+
+            etiquetaCantidadNor = tkinter.Label(ventana_reservacion,text="Cantidad de espacios a reservar economicos:",
+                                            font=("Times new roman","12"),bg="white", fg="Black").place(x=10,y=110)
+            CantidadNor = tkinter.Entry(ventana_reservacion,text = "",font=("Times new roman","12"),bg="white", fg="Black")
+            CantidadNor.place(x=300,y=110)
+
+            etiquetaCantidadEco = tkinter.Label(ventana_reservacion,text="Cantidad de espacios a reservar economicos:",
+                                        font=("Times new roman","12"),bg="white", fg="Black").place(x=10,y=140)
+            CantidadEco = tkinter.Entry(ventana_reservacion,text = "",font=("Times new roman","12"),bg="white", fg="Black")
+            CantidadEco.place(x=300,y=140)
+
+            def reservacion_de_viajes1():
+                
             
+                reservacion_de_viajes_aux(Numero.get(),Nombre.get(),CantidadVIP.get(),CantidadNor.get(),CantidadEco.get())
+                ventana_reservacion.destroy()
+            boton = tkinter.Button(ventana_reservacion, text = "Reservar",font=("Times new roman","12"),bg="white", fg="Black",
+                            command= reservacion_de_viajes1).place(x=270,y=380)
+            
+
+        
         def cancelacion_aux():
             barraMenu2.destroy()
+            etiqueta1.destroy()
             ventana_Avanzada.geometry("400x400")
             ventana_Avanzada.title("Cancelar reservacion")
             ventana_Avanzada.configure(background="aqua")
@@ -1478,18 +1517,22 @@ def menu():
                     mensaje=messagebox.showinfo("Error","El numero de reservacion ingresado no exixte.")
               
                                                 
-            boton=tkinter.Button(ventana_Avanzada,text="Cancelar reservacion",command=cancelarReservacion_aux)
-            boton.place(x=120,y=60)
+            boton=tkinter.Button(ventana_Avanzada,text="Cancelar reservacion",font=("Times New Roman",14), bg="white", fg="Black",
+                                 command=cancelarReservacion_aux)
+            boton.place(x=100,y=70)
 
             
 
                     
         ventana_Avanzada=Tk()
-        ventana_Avanzada.geometry("300x200+100+100")
+        ventana_Avanzada.geometry("500x200+100+100")
         ventana_Avanzada.title("Busquedas Avanzadas")
         ventana_Avanzada.configure(background="aqua")
         barraMenu2=Menu(ventana_Avanzada)
         menu_avanzado=Menu(barraMenu2,background="lime")
+        etiqueta1=tkinter.Label(ventana_Avanzada,text="Seleccione la opcion que necesita en la parte superior izquierda.",font=("Times New Roman",14), bg="white", fg="Black")
+        etiqueta1.place(x=0,y=50)
+        
 
         menu_avanzado.add_command(label="Consulta de viajes",font=("Times New Roman",14),command=consulta_Viajes)
         menu_avanzado.add_command(label=" Reservación de viaje", font=("Times New Roman",14),command=reservacion_de_viajes)
@@ -2284,126 +2327,71 @@ def seEncuentra_Aux(placa,viajes):
         else:
             continue
     return False
+#------------------------------------------------------------------------------
 
-"""
-nombre:Estadisticas_de_viaje
-entrada: op= numero del viaje.
-salida: imprime los datos del viaje solicitado.
-restricciones: debe ser un numero entero la linea.
-"""
-"""
-def Estadisticas_de_viaje():
-    archivo=open("Gestion de viaje.txt")
-    viajes=archivo.read()
-    print(viajes)
-    op=input("Ingrese el numero del viaje: ")
-    archivo=open("Gestion de viaje.txt")
-    datos=archivo.readlines()# almacena los datos de los viajes
-    linea=buscar_linea_aux(datos,"numero de viaje: "+op+"\n",0)
-    print("")
-    if(isinstance(linea,int)and ("numero del viaje"+str(op)+"\n")):
-        archivo=open("Gestion de viaje.txt")
-        datos=archivo.readlines()
-        print(datos[linea])
-        print(datos[linea+7])
-        print(datos[linea+8])
-        print("lugar de salida: "+datos[linea+1])
-        print("fecha de salida: "+datos[linea+2])
-        print("hora de salida: "+datos[linea+3])
-        print("lugar de llegada: "+datos[linea+4])
-        print("fecha de llegada: "+datos[linea+5])
-        print("hora de llegada: "+datos[linea+6])
-        archivo1=open("reservacion de viaje.txt")
-        datos2=archivo1.readlines()#almacena los datos de las reservaciones
-        valida=linea_aux(datos2,datos[linea],0)
-        #print(isinstance(valida,int))
-        if(isinstance(valida,int)):#and not(valida==False) or valida==0:
-            linea2=linea_aux(datos2,datos[linea],0)
-            print("total de asiento VIP reservado: "+datos2[linea2+13][4:-1])
-            archivo3=open("Gestion de transporte.txt")
-            datos3=archivo3.readlines()#almacena los datos de los transportes de los viaje.
-            linea3=linea3_aux(datos3,datos[linea+8],0)
-            vip=datos2[linea2+13][4:-1]
-            vip=int(vip)
-            disponible=datos3[linea3+5]
-            disponible=disponible[:-1]
-            normal=datos2[linea2+14]
-            normal=int(normal[7:-1])
-            print("total de asiento VIP disponible: "+(str((int(disponible[0:])-(vip)))))
-            print("total de asiento Normal reservado: "+datos2[linea2+14][7:-1])
-            disponible=datos3[linea3+6]
-            disponible=disponible[:-1]
-            print("Total de asiento Normal disponible: "+(str(int(disponible[0:])-(normal))))
-            economico=datos2[linea2+15]
-            economico=int(economico[10:-1])
-            print("Total de asiento economico reservado: "+(str(economico)))
-            disponible=datos3[linea3+7]
-            disponible=disponible[:-1]
-            print("Total de asiento economico disponible: "+(str(int(disponible)-(economico))))
-            costo_VIP=datos[linea+9][10:-1]
-            print("Costo del boleto Vip: "+costo_VIP)
-            Costo_normal=datos[linea+10][13:-1]
-            print("Costo del boleto Normal: "+Costo_normal)
-            Costo_Economico=datos[linea+11][16:-1]
-            print("Costo del boleto Economico: "+Costo_Economico)
-            suma=(vip*int(costo_VIP))+(normal*(int(Costo_normal)))+(economico*(int(Costo_Economico)))
-            print("Monto recaudado por el viaje: "+str(suma))
-            archivo.close()
-            archivo1.close()
-            archivo3.close()
-            return admistrativas()
-        else:
-            #linea2=linea_aux(datos2,datos[linea],0)
-            print("total de asiento VIP reservado: "+"0")
-            archivo3=open("Gestion de transporte.txt")
-            datos3=archivo3.readlines()#almacena los datos de los transportes de los viaje.
-            linea3=linea3_aux(datos3,datos[linea+8],0)
-            #vip=datos2[linea2+13][4:-1]
-            #vip=int(vip)
-            disponible=datos3[linea3+5]
-            disponible=disponible[:-1]
-            #normal=datos2[linea2+14]
-            #normal=int(normal[7:-1])
-            print("total de asiento VIP disponible: "+(str((int(disponible[0:])))))
-            print("total de asiento Normal reservado: "+"0")
-            disponible=datos3[linea3+6]
-            disponible=disponible[:-1]
-            print("Total de asiento Normal disponible: "+(str(int(disponible[0:]))))
-            #economico=datos2[linea2+15]
-            #economico=int(economico[10:-1])
-            print("Total de asiento economico reservado: "+"0")
-            disponible=datos3[linea3+7]
-            disponible=disponible[:-1]
-            print("Total de asiento economico disponible: "+(str(int(disponible))))
-            costo_VIP=datos[linea+9][10:-1]
-            print("Costo del boleto Vip: "+costo_VIP)
-            Costo_normal=datos[linea+10][13:-1]
-            print("Costo del boleto Normal: "+Costo_normal)
-            Costo_Economico=datos[linea+11][16:-1]
-            print("Costo del boleto Economico: "+Costo_Economico)
-            #suma=(vip*int(costo_VIP))+(normal*(int(Costo_normal)))+(economico*(int(Costo_Economico)))
-            print("Monto recaudado por el viaje: "+"0")
-            archivo.close()
-            archivo1.close()
-            archivo3.close()
-            return admistrativas()
 
-            
-"""            
-            
-            
-    
+def reservacion_de_viajes_aux(Numero,Nombre,CantidadVIP,CantidadNor,CantidadEco):
+    from datetime import datetime
+    archivo = open("Reservacion.txt","a")
+    archivo.close()
+    archivo2 = open("Gestion de viaje.txt")
+    viajes = archivo2.readlines()
+    linea = viajes.index(Numero+"\n")
+    FechaHora = datetime.now()
+    Empresa = viajes[linea+9]
+    Transporte = viajes[linea+10]
+    ciudaSalida = viajes[linea+2]
+    ProvinciaSalida = viajes[linea+1]
+    FechaSalida = viajes[linea+3]
+    HoraSalida = viajes[linea+4]
+    ciudadLlegada = viajes[linea+6]
+    ProvinciaLlegada = viajes[linea+5]
+    FechaLlegada = viajes[linea+7]
+    HoraLlegada = viajes[linea+8]
+    Placa = viajes[linea+10]
+    archivo3 = open("Gestion de Transporte.txt")
+    transporte= archivo3.readlines()
+    lineaT = transporte.index(Placa)
+    VIPdisponible = transporte[lineaT+6]
+    if int(VIPdisponible) - int(CantidadVIP)>= 0:
+        NormalDisponible = transporte[lineaT+7]
+        if int(NormalDisponible) - int(CantidadNor)>= 0:
+            EconomicoDisponible = transporte[lineaT+8]
+            if int(EconomicoDisponible) - int(CantidadEco)>= 0:
+                Monto = int(CantidadVIP)*(int(viajes[linea+11]))
+                Monto2 = int(CantidadNor)*(int(viajes[linea+12]))
+                Monto3 = int(CantidadEco)*(int(viajes[linea+13]))
+                Archivo = open("Reservacion.txt")
+                reservaciones = Archivo.readlines()
+                cont=1
+                for n in reservaciones:
+                    cont+=1
+                cont=cont//20+1
+                Archivo = open("Reservacion.txt","a")
+                FechaHora = datetime.now()
+                
+                Archivo.write(str(cont)+"\n")
+                Archivo.write(Nombre+"\n")
+                Archivo.write(str(Numero)+"\n")
+                Archivo.write(str(FechaHora)[:10]+"\n")
+                Archivo.write(str(FechaHora)[10:18]+"\n")
+                Archivo.write(Empresa)
+                Archivo.write(Transporte)
+                Archivo.write(ProvinciaSalida)
+                Archivo.write(ciudaSalida)                
+                Archivo.write(FechaSalida)
+                Archivo.write(HoraSalida)
+                Archivo.write(ProvinciaLlegada)
+                Archivo.write(ciudadLlegada)
+                
+                Archivo.write(FechaLlegada)
+                Archivo.write(HoraLlegada)
+                Archivo.write(CantidadVIP+"\n")
+                Archivo.write(CantidadNor+"\n")
+                Archivo.write(CantidadEco+"\n")
+                Archivo.write(str(Monto+Monto2+Monto3)+"\n")
+                Archivo.write("......................................................."+"\n")
 
-    
-#def Mostrar_informacion(datos,linea,cont):
-"""  while
-        if cont ==18:#Se hace la debida verificación de la restricción.
-            
-        else:#Si la primera restricción no se cumple se retorna a esta.
-            print(datos[linea].rstrip())
-            return Mostrar_informacion(datos, linea + 1, cont + 1)
-
-"""
 
     
 menu()
